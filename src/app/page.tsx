@@ -36,10 +36,31 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [customName, setCustomName] = useState("");
 
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Connect to email list (Loops, Buttondown, or simple Google Sheet)
+    try {
+      await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+    } catch {}
     setSubmitted(true);
+  };
+
+  const handleRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customName.trim()) return;
+    try {
+      await fetch("/api/request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: customName, email }),
+      });
+    } catch {}
+    setRequestSubmitted(true);
   };
 
   return (
@@ -211,19 +232,29 @@ export default function Home() {
           )}
 
           <div className="pt-8 border-t border-white/10">
-            <p className="text-sm text-[#C4BAB0] mb-4">Or tell us your name and we&apos;ll make it first:</p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="text"
-                value={customName}
-                onChange={(e) => setCustomName(e.target.value)}
-                placeholder="Enter a name..."
-                className="flex-1 px-5 py-4 bg-white/10 border border-white/20 rounded-none text-white placeholder:text-white/40 focus:outline-none focus:border-[#E8B94A] transition-colors text-sm"
-              />
-              <button className="btn-primary !bg-transparent !border !border-[#E8B94A] !text-[#E8B94A] hover:!bg-[#E8B94A] hover:!text-[#1A1612] whitespace-nowrap">
-                Request This Name
-              </button>
-            </div>
+            {!requestSubmitted ? (
+              <>
+                <p className="text-sm text-[#C4BAB0] mb-4">Or tell us your name and we&apos;ll make it first:</p>
+                <form onSubmit={handleRequest} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                  <input
+                    type="text"
+                    value={customName}
+                    onChange={(e) => setCustomName(e.target.value)}
+                    placeholder="Enter a name..."
+                    required
+                    className="flex-1 px-5 py-4 bg-white/10 border border-white/20 rounded-none text-white placeholder:text-white/40 focus:outline-none focus:border-[#E8B94A] transition-colors text-sm"
+                  />
+                  <button type="submit" className="btn-primary !bg-transparent !border !border-[#E8B94A] !text-[#E8B94A] hover:!bg-[#E8B94A] hover:!text-[#1A1612] whitespace-nowrap">
+                    Request This Name
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="bg-[#D4930D]/20 border border-[#D4930D]/40 rounded-lg p-6">
+                <p className="text-[#E8B94A] font-medium">Got it! &ldquo;{customName}&rdquo; is on our list 🎨</p>
+                <p className="text-[#C4BAB0] text-sm mt-2">We&apos;ll create your poster and notify you when it&apos;s ready.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
