@@ -9,6 +9,49 @@ import ClassicPoster from "../../components/ClassicPoster";
 type Step = "name" | "analyzing" | "etymology" | "phonetics" | "morphology" | "palette" | "imagery" | "preview";
 type PosterLayout = "detailed" | "classic";
 
+const LOADING_MESSAGES = [
+  "Crafting your poster...",
+  "Researching 5,000 years of etymology...",
+  "Consulting the phoneticians...",
+  "Your name is already amazing, by the way",
+  "Generating custom artwork...",
+  "Almost there...",
+  "Making it beautiful...",
+  "This is going to look incredible",
+  "Worth the wait, we promise",
+  "Preparing something special...",
+];
+
+function LoadingState({ name }: { name: string }) {
+  const [msgIndex, setMsgIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMsgIndex((prev) => (prev + 1) % LOADING_MESSAGES.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center justify-center py-24 gap-8">
+      <div className="relative">
+        <h2
+          className="text-5xl md:text-7xl font-bold tracking-[0.15em] uppercase opacity-20"
+          style={{ fontFamily: "'Playfair Display', serif", color: "#D4930D" }}
+        >
+          {name}
+        </h2>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-10 h-10 border-2 border-[#D4930D] border-t-transparent rounded-full animate-spin" />
+        </div>
+      </div>
+      <p className="text-[#C4BAB0] text-sm animate-pulse transition-all duration-500">
+        {LOADING_MESSAGES[msgIndex]}
+      </p>
+    </div>
+  );
+}
+
 const STEP_ORDER: Step[] = ["name", "analyzing", "etymology", "phonetics", "morphology", "palette", "imagery", "preview"];
 
 export default function CreatePage() {
@@ -386,75 +429,82 @@ export default function CreatePage() {
         {/* Step: Preview */}
         {step === "preview" && analysis && (
           <div className="space-y-8">
-            {/* Layout toggle */}
-            <div className="flex justify-center gap-2">
-              <button
-                onClick={() => setPosterLayout("detailed")}
-                className={`px-4 py-2 rounded-full text-sm transition-all ${posterLayout === "detailed" ? "bg-[#D4930D] text-[#1A1612] font-semibold" : "bg-[#2A2520] text-[#C4BAB0] hover:bg-[#3A3530]"}`}
-              >
-                Detailed
-              </button>
-              <button
-                onClick={() => setPosterLayout("classic")}
-                className={`px-4 py-2 rounded-full text-sm transition-all ${posterLayout === "classic" ? "bg-[#D4930D] text-[#1A1612] font-semibold" : "bg-[#2A2520] text-[#C4BAB0] hover:bg-[#3A3530]"}`}
-              >
-                Classic
-              </button>
-            </div>
-
-            {/* Poster */}
-            {posterLayout === "detailed" ? (
-              <div className="max-w-3xl mx-auto poster-shadow rounded-lg overflow-hidden">
-                <EditorialPoster
-                  analysis={analysis}
-                  palette={palette}
-                  artUrl={artUrl}
-                  generating={artGenerating}
-                />
-              </div>
+            {/* Loading state while art generates */}
+            {artGenerating && !artUrl ? (
+              <LoadingState name={analysis.name} />
             ) : (
-              <div className="flex justify-center">
-                <div className="poster-shadow rounded-lg overflow-hidden">
-                  <ClassicPoster
-                    analysis={analysis}
-                    palette={palette}
-                    artUrl={artUrl}
-                    generating={artGenerating}
-                  />
+              <>
+                {/* Layout toggle */}
+                <div className="flex justify-center gap-2">
+                  <button
+                    onClick={() => setPosterLayout("detailed")}
+                    className={`px-4 py-2 rounded-full text-sm transition-all ${posterLayout === "detailed" ? "bg-[#D4930D] text-[#1A1612] font-semibold" : "bg-[#2A2520] text-[#C4BAB0] hover:bg-[#3A3530]"}`}
+                  >
+                    Detailed
+                  </button>
+                  <button
+                    onClick={() => setPosterLayout("classic")}
+                    className={`px-4 py-2 rounded-full text-sm transition-all ${posterLayout === "classic" ? "bg-[#D4930D] text-[#1A1612] font-semibold" : "bg-[#2A2520] text-[#C4BAB0] hover:bg-[#3A3530]"}`}
+                  >
+                    Classic
+                  </button>
                 </div>
-              </div>
+
+                {/* Poster */}
+                {posterLayout === "detailed" ? (
+                  <div className="max-w-3xl mx-auto poster-shadow rounded-lg overflow-hidden animate-fade-in">
+                    <EditorialPoster
+                      analysis={analysis}
+                      palette={palette}
+                      artUrl={artUrl}
+                      generating={artGenerating}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex justify-center animate-fade-in">
+                    <div className="poster-shadow rounded-lg overflow-hidden">
+                      <ClassicPoster
+                        analysis={analysis}
+                        palette={palette}
+                        artUrl={artUrl}
+                        generating={artGenerating}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div className="max-w-lg mx-auto space-y-4">
+                  {/* Regenerate */}
+                  {artUrl && (
+                    <button
+                      onClick={() => { setArtUrl(null); generateArt(); }}
+                      className="btn-secondary w-full flex items-center justify-center gap-2"
+                    >
+                      🎨 Regenerate Artwork (free)
+                    </button>
+                  )}
+
+                  <div className="flex gap-4">
+                    <button className="btn-primary flex-1">
+                      Buy Digital Print — £25
+                    </button>
+                  </div>
+                  <button className="btn-secondary w-full">
+                    Buy Framed Print — £45
+                  </button>
+                  <p className="text-center text-xs text-[#C4BAB0]">
+                    Coming soon. Join the waitlist to be notified at launch.
+                  </p>
+                </div>
+
+                <div className="flex justify-between pt-4">
+                  <button onClick={goBack} className="btn-secondary">Back</button>
+                  <button onClick={() => { setStep("name"); setAnalysis(null); setName(""); setArtUrl(null); setArtTaskId(null); }} className="btn-secondary">
+                    Try Another Name
+                  </button>
+                </div>
+              </>
             )}
-
-            <div className="max-w-lg mx-auto space-y-4">
-              {/* Regenerate */}
-              {artUrl && (
-                <button
-                  onClick={() => { setArtUrl(null); generateArt(); }}
-                  className="btn-secondary w-full flex items-center justify-center gap-2"
-                >
-                  🎨 Regenerate Artwork (free)
-                </button>
-              )}
-
-              <div className="flex gap-4">
-                <button className="btn-primary flex-1">
-                  Buy Digital Print — £25
-                </button>
-              </div>
-              <button className="btn-secondary w-full">
-                Buy Framed Print — £45
-              </button>
-              <p className="text-center text-xs text-[#C4BAB0]">
-                Coming soon. Join the waitlist to be notified at launch.
-              </p>
-            </div>
-
-            <div className="flex justify-between pt-4">
-              <button onClick={goBack} className="btn-secondary">Back</button>
-              <button onClick={() => { setStep("name"); setAnalysis(null); setName(""); setArtUrl(null); setArtTaskId(null); }} className="btn-secondary">
-                Try Another Name
-              </button>
-            </div>
           </div>
         )}
       </div>
