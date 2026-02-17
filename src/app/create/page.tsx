@@ -428,7 +428,17 @@ export default function CreatePage() {
               </div>
             </div>
 
-            <div className="max-w-md mx-auto space-y-4">
+            <div className="max-w-lg mx-auto space-y-4">
+              {/* Regenerate */}
+              {artUrl && (
+                <button
+                  onClick={() => { setArtUrl(null); generateArt(); }}
+                  className="btn-secondary w-full flex items-center justify-center gap-2"
+                >
+                  🎨 Regenerate Artwork (free)
+                </button>
+              )}
+
               <div className="flex gap-4">
                 <button className="btn-primary flex-1">
                   Buy Digital Print — £25
