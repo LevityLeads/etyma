@@ -10,7 +10,7 @@ interface EditorialPosterProps {
   generating?: boolean;
 }
 
-export default function EditorialPoster({ analysis, palette, artUrl, generating }: EditorialPosterProps) {
+export default function EditorialPoster({ analysis, palette, artUrl }: EditorialPosterProps) {
   const p = PALETTES[palette];
   const isLight = palette === "warm-gold" || palette === "earth-tones" || palette === "botanical";
 
