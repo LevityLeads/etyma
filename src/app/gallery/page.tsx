@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { NameAnalysis, ColourPalette } from "../../types/name";
-import { PALETTES } from "../../types/name";
+import type { ColourPalette } from "../../types/name";
 import { GALLERY_NAMES, GALLERY_PALETTES } from "../../data/names";
 import PosterPreview from "../../components/PosterPreview";
 
