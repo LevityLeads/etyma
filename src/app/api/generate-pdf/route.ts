@@ -256,8 +256,9 @@ export async function POST(req: NextRequest) {
 
     const doc = createPosterDocument(analysis, palette, artUrl);
     const buffer = await renderToBuffer(doc);
+    const uint8 = new Uint8Array(buffer);
 
-    return new NextResponse(buffer, {
+    return new NextResponse(uint8, {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="etyma-${analysis.name.toLowerCase()}.pdf"`,
