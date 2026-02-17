@@ -1,8 +1,7 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { useState } from "react";
+import Image from "next/image";
 
 // Custom SVG icons instead of emojis
 const Icons = {
@@ -126,7 +125,7 @@ export default function Home() {
           <div className="relative">
             <div className="poster-float">
               <div className="poster-shadow rounded-lg overflow-hidden bg-[#1A1612] p-3">
-                <img src="/posters/sunny-preview.png" alt="SUNNY - Word Anatomy Art Print by Etyma" className="w-full rounded" />
+                <Image src="/posters/sunny-preview.png" alt="SUNNY - Word Anatomy Art Print by Etyma" width={600} height={800} className="w-full rounded" />
               </div>
             </div>
             <div className="absolute -z-10 top-10 -right-10 w-40 h-40 rounded-full bg-[#F5D78E]/30 blur-3xl" />
@@ -291,7 +290,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div className="order-2 lg:order-1">
               <div className="poster-shadow rounded-lg overflow-hidden bg-[#1A1612] p-3 max-w-md">
-                <img src="/posters/sunny-preview.png" alt="SUNNY poster detail" className="w-full rounded" />
+                <Image src="/posters/sunny-preview.png" alt="SUNNY poster detail" width={600} height={800} className="w-full rounded" />
               </div>
             </div>
             <div className="order-1 lg:order-2 space-y-8 lg:sticky lg:top-32">
