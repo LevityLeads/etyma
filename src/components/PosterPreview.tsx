@@ -1,7 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import type { NameAnalysis, ColourPalette } from "../types/name";
 import { PALETTES } from "../types/name";
+
+const NAME_ART: Record<string, string> = {
+  Sunny: "/posters/sunny-art.png",
+  Auri: "/posters/auri-art.png",
+  Luna: "/posters/luna-art.png",
+  Oliver: "/posters/oliver-art.png",
+  Alexander: "/posters/alexander-art.png",
+  Iris: "/posters/iris-art.png",
+  Felix: "/posters/felix-art.png",
+  Willow: "/posters/willow-art.png",
+};
 
 interface PosterPreviewProps {
   analysis: NameAnalysis;
@@ -13,16 +25,29 @@ export default function PosterPreview({ analysis, palette, compact }: PosterPrev
   const p = PALETTES[palette];
   const { etymology, phonetics, morphology } = analysis;
 
+  const artSrc = NAME_ART[analysis.name];
+
   if (compact) {
     return (
       <div
-        className="aspect-[3/4] rounded-lg p-6 flex flex-col items-center justify-center gap-3"
+        className="aspect-[3/4] rounded-lg overflow-hidden relative flex flex-col items-center justify-end"
         style={{ backgroundColor: p.bg, color: p.text }}
       >
-        <span className="text-3xl font-bold tracking-widest uppercase" style={{ color: p.accent }}>
-          {analysis.name}
-        </span>
-        <span className="text-[10px] tracking-[0.3em] uppercase opacity-50">Word Anatomy</span>
+        {artSrc ? (
+          <Image
+            src={artSrc}
+            alt={`${analysis.name} artwork`}
+            fill
+            className="object-cover opacity-60"
+            sizes="(max-width: 768px) 50vw, 25vw"
+          />
+        ) : null}
+        <div className="relative z-10 p-6 text-center w-full bg-gradient-to-t from-black/80 to-transparent pt-16">
+          <span className="text-3xl font-bold tracking-widest uppercase" style={{ color: p.accent }}>
+            {analysis.name}
+          </span>
+          <span className="block text-[10px] tracking-[0.3em] uppercase opacity-50 mt-1">Word Anatomy</span>
+        </div>
       </div>
     );
   }
@@ -46,17 +71,29 @@ export default function PosterPreview({ analysis, palette, compact }: PosterPrev
           </p>
         </div>
 
-        {/* Central art area placeholder */}
-        <div
-          className="mx-auto w-32 h-32 rounded-full mb-6 flex items-center justify-center"
-          style={{
-            background: `radial-gradient(circle, ${p.colors[0]}33, ${p.colors[1]}11)`,
-            border: `1px solid ${p.accent}33`,
-          }}
-        >
-          <span className="text-5xl font-light" style={{ color: p.accent }}>
-            {analysis.name[0]}
-          </span>
+        {/* Central artwork */}
+        <div className="mx-auto w-40 h-40 rounded-lg mb-6 overflow-hidden relative flex-shrink-0">
+          {artSrc ? (
+            <Image
+              src={artSrc}
+              alt={`${analysis.name} artwork`}
+              fill
+              className="object-cover"
+              sizes="160px"
+            />
+          ) : (
+            <div
+              className="w-full h-full flex items-center justify-center"
+              style={{
+                background: `radial-gradient(circle, ${p.colors[0]}33, ${p.colors[1]}11)`,
+                border: `1px solid ${p.accent}33`,
+              }}
+            >
+              <span className="text-5xl font-light" style={{ color: p.accent }}>
+                {analysis.name[0]}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Etymology */}
