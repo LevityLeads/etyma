@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import React from "react";
-import { renderToBuffer, Document, Page, View, Text, Image, StyleSheet, Font } from "@react-pdf/renderer";
+import { renderToBuffer, Document, Page, View, Text, Image, StyleSheet } from "@react-pdf/renderer";
 import type { NameAnalysis, ColourPalette } from "../../../types/name";
 import { PALETTES } from "../../../types/name";
 
