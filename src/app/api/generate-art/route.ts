@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       palette === "monochrome" ? "black white and silver monochrome" :
       "warm amber and gold tones";
 
-    const prompt = `Fine art print, dark background, ${styleDesc}, inspired by the concept of "${meaning}" and the name "${name}", ${paletteTone}, ethereal and luminous, premium gallery quality wall art, no text, no words, no letters`;
+    const prompt = `Fine art print, dark background, ${styleDesc}, visually representing the concept of "${meaning}" through symbolic imagery, ${paletteTone}, ethereal and luminous, premium gallery quality wall art, beautiful composition with space for text overlay at top and bottom, no text, no words, no letters, no typography`;
 
     const response = await fetch("https://api.kie.ai/api/v1/flux/kontext/generate", {
       method: "POST",
