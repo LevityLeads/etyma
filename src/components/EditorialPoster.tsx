@@ -1,0 +1,337 @@
+"use client";
+
+import type { NameAnalysis, ColourPalette } from "../types/name";
+import { PALETTES } from "../types/name";
+
+interface EditorialPosterProps {
+  analysis: NameAnalysis;
+  palette: ColourPalette;
+  artUrl?: string | null;
+  generating?: boolean;
+}
+
+export default function EditorialPoster({ analysis, palette, artUrl, generating }: EditorialPosterProps) {
+  const p = PALETTES[palette];
+  const isLight = palette === "warm-gold" || palette === "earth-tones";
+
+  // Adaptive colours
+  const bg = isLight ? "#F5F0E8" : p.bg;
+  const text = isLight ? "#1E1E1E" : p.text;
+  const accent = p.accent;
+  const textMuted = isLight ? "#6B6560" : `${p.text}99`;
+  const textFaint = isLight ? "#908880" : `${p.text}66`;
+  const divider = isLight ? "#D5CFC5" : `${p.text}22`;
+
+  const { etymology, phonetics, morphology, phonaesthesia, semanticWeb, emotionalRegister, summaryQuote } = analysis;
+
+  return (
+    <div
+      className="relative w-full mx-auto overflow-hidden"
+      style={{
+        backgroundColor: bg,
+        color: text,
+        maxWidth: 900,
+        aspectRatio: "2/3",
+        fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+      }}
+    >
+      <div className="h-full flex flex-col" style={{ padding: "clamp(24px, 4vw, 60px)" }}>
+        {/* ── HERO ── */}
+        <div className="text-center relative" style={{ marginBottom: "clamp(16px, 3vw, 40px)" }}>
+          {/* Art watermark behind name */}
+          {artUrl && (
+            <div
+              className="absolute left-1/2 -translate-x-1/2"
+              style={{ top: "-10%", width: "50%", aspectRatio: "1/1", opacity: 0.2 }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={artUrl} alt="" className="w-full h-full object-contain" />
+            </div>
+          )}
+          {generating && !artUrl && (
+            <div
+              className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center"
+              style={{ top: "5%", width: "40%", aspectRatio: "1/1", opacity: 0.3 }}
+            >
+              <div className="w-12 h-12 border-2 rounded-full animate-spin" style={{ borderColor: accent, borderTopColor: "transparent" }} />
+            </div>
+          )}
+          <h1
+            className="relative"
+            style={{
+              fontFamily: "'Playfair Display', 'Georgia', serif",
+              fontWeight: 900,
+              fontSize: "clamp(48px, 10vw, 120px)",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              lineHeight: 1.1,
+            }}
+          >
+            {analysis.name}
+          </h1>
+          <p
+            className="relative"
+            style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: "clamp(12px, 1.8vw, 18px)",
+              marginTop: "clamp(4px, 0.8vw, 12px)",
+              letterSpacing: "0.1em",
+              color: textMuted,
+            }}
+          >
+            {phonetics.ipa}
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div style={{ borderTop: `1px solid ${divider}`, marginBottom: "clamp(12px, 2vw, 30px)" }} />
+
+        {/* ── TWO COLUMN BODY ── */}
+        <div className="grid grid-cols-2 flex-1" style={{ gap: "clamp(16px, 3vw, 40px)" }}>
+          {/* LEFT COLUMN */}
+          <div className="flex flex-col" style={{ gap: "clamp(12px, 2vw, 28px)" }}>
+            {/* Phonetic Anatomy */}
+            <div>
+              <h3 style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(6px, 1vw, 14px)" }}>
+                Phonetic Anatomy
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: "clamp(8px, 1.2vw, 18px)" }}>
+                {phonetics.sounds.map((s, i) => (
+                  <div key={i} className="flex items-start" style={{ gap: "clamp(6px, 1vw, 12px)" }}>
+                    <span style={{ fontFamily: "serif", fontSize: "clamp(20px, 3vw, 36px)", lineHeight: 1, flexShrink: 0, minWidth: "2em" }}>
+                      {s.symbol}
+                    </span>
+                    <div>
+                      <p style={{ fontWeight: 600, fontSize: "clamp(8px, 1vw, 12px)" }}>{s.type}</p>
+                      <p style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted, lineHeight: 1.4 }}>{s.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Stress Pattern */}
+            <div>
+              <h3 style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(4px, 0.8vw, 10px)" }}>
+                Stress Pattern
+              </h3>
+              <div className="flex items-center" style={{ gap: "clamp(4px, 0.6vw, 8px)", marginBottom: "clamp(4px, 0.6vw, 8px)" }}>
+                {phonetics.stressPattern.split("-").map((part, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: "clamp(10px, 1.4vw, 16px)",
+                      height: "clamp(10px, 1.4vw, 16px)",
+                      borderRadius: "50%",
+                      backgroundColor: part === "STRONG" || part === "DA" ? text : "transparent",
+                      border: `1.5px solid ${text}`,
+                    }}
+                  />
+                ))}
+                <span style={{ fontWeight: 600, fontSize: "clamp(9px, 1.1vw, 13px)", marginLeft: "clamp(4px, 0.6vw, 8px)" }}>
+                  {phonetics.stressType}
+                </span>
+              </div>
+              <p style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted, lineHeight: 1.5 }}>
+                {phonetics.stressDescription}
+              </p>
+            </div>
+
+            {/* Mouth Journey */}
+            <div>
+              <h3 style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(4px, 0.8vw, 10px)" }}>
+                Mouth Journey
+              </h3>
+              <p style={{ fontSize: "clamp(8px, 1vw, 12px)", color: textMuted }}>
+                {phonetics.mouthJourney}
+              </p>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="flex flex-col" style={{ gap: "clamp(12px, 2vw, 28px)" }}>
+            {/* Morphology */}
+            <div>
+              <h3 style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(6px, 1vw, 14px)" }}>
+                Morphology
+              </h3>
+              <div className="flex items-baseline" style={{ gap: "clamp(4px, 0.6vw, 8px)", marginBottom: "clamp(6px, 1vw, 12px)" }}>
+                {morphology.morphemes.map((m, i) => (
+                  <span key={i}>
+                    {i > 0 && <span style={{ color: accent, fontWeight: 700, fontSize: "clamp(20px, 3.5vw, 50px)", fontFamily: "serif" }}>+</span>}
+                    <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: "clamp(20px, 3.5vw, 50px)", textTransform: "uppercase" }}>
+                      {i > 0 ? "-" : ""}{m.part}
+                    </span>
+                  </span>
+                ))}
+              </div>
+              <div className="flex" style={{ gap: "clamp(16px, 3vw, 40px)", marginBottom: "clamp(6px, 1vw, 10px)" }}>
+                {morphology.morphemes.map((m, i) => (
+                  <span key={i} style={{ fontSize: "clamp(7px, 0.8vw, 10px)", color: textFaint }}>{m.type}: {m.meaning}</span>
+                ))}
+              </div>
+              <p style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted, lineHeight: 1.5 }}>
+                {morphology.grammaticalJourney}
+              </p>
+            </div>
+
+            {/* Etymology */}
+            <div>
+              <h3 style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(6px, 1vw, 14px)" }}>
+                Etymology
+              </h3>
+              <p style={{ fontFamily: "monospace", fontSize: "clamp(8px, 1.1vw, 13px)" }}>
+                {etymology.originLanguage} {etymology.rootWord}
+              </p>
+              <p style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted, fontStyle: "italic" }}>
+                &ldquo;{etymology.rootMeaning || etymology.meaning}&rdquo; &middot; {etymology.age || "ancient"}
+              </p>
+              <div style={{ marginTop: "clamp(6px, 1vw, 12px)", paddingLeft: "clamp(8px, 1.2vw, 20px)" }}>
+                {etymology.languageFamilyTree.map((lang, i) => {
+                  const isLast = i === etymology.languageFamilyTree.length - 1;
+                  return (
+                    <div key={i} style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted, lineHeight: 2 }}>
+                      <span style={{ marginRight: 8, fontSize: "0.7em" }}>↓</span>
+                      <span style={isLast ? { fontWeight: 700, color: text } : undefined}>{lang}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              <p style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted, lineHeight: 1.5, marginTop: "clamp(6px, 1vw, 12px)" }}>
+                {etymology.historicalNotes}
+              </p>
+            </div>
+
+            {/* Semantic Web */}
+            {semanticWeb && (
+              <div>
+                <h3 style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(6px, 1vw, 14px)" }}>
+                  Semantic Web
+                </h3>
+                <div className="relative flex items-center justify-center" style={{ height: "clamp(80px, 12vw, 160px)" }}>
+                  {/* Center node */}
+                  <div
+                    className="absolute z-10 px-3 py-1.5 rounded"
+                    style={{ border: `1px solid ${textFaint}`, fontSize: "clamp(8px, 1vw, 11px)", fontWeight: 700, backgroundColor: bg }}
+                  >
+                    {analysis.name.toUpperCase()}
+                  </div>
+                  {/* Surrounding words */}
+                  {(semanticWeb.associations || []).slice(0, 5).map((word, i) => {
+                    const positions = [
+                      { top: "5%", left: "10%" },
+                      { top: "5%", right: "10%" },
+                      { top: "45%", left: "0%" },
+                      { top: "45%", right: "0%" },
+                      { bottom: "5%", left: "25%", right: "25%", textAlign: "center" as const },
+                    ];
+                    return (
+                      <span
+                        key={i}
+                        className="absolute"
+                        style={{ ...positions[i], fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted }}
+                      >
+                        {word}
+                      </span>
+                    );
+                  })}
+                </div>
+                {semanticWeb.coreValues && (
+                  <p className="text-center" style={{ fontSize: "clamp(7px, 0.8vw, 10px)", color: textFaint }}>
+                    {semanticWeb.coreValues}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(12px, 2vw, 30px) 0" }} />
+
+        {/* ── SOUND SYMBOLISM ── */}
+        {phonaesthesia && phonaesthesia.length > 0 && (
+          <div>
+            <h3 className="text-center" style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(8px, 1.4vw, 18px)" }}>
+              Sound Symbolism &middot; Phonaesthesia
+            </h3>
+            <div className="flex items-center justify-center" style={{ gap: "clamp(4px, 1vw, 16px)" }}>
+              {phonaesthesia.map((ph, i) => (
+                <div key={i} className="flex items-center" style={{ gap: "clamp(4px, 1vw, 16px)" }}>
+                  <div className="text-center">
+                    <span style={{ fontFamily: "serif", fontSize: "clamp(20px, 4vw, 50px)", display: "block" }}>{ph.symbol}</span>
+                    <span style={{ fontSize: "clamp(6px, 0.8vw, 10px)", color: textMuted, display: "block" }}>{ph.line1}</span>
+                    <span style={{ fontSize: "clamp(6px, 0.8vw, 10px)", color: textFaint, display: "block" }}>{ph.line2}</span>
+                  </div>
+                  {i < phonaesthesia.length - 1 && (
+                    <span style={{ color: accent, fontSize: "clamp(10px, 1.4vw, 18px)" }}>→</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Divider */}
+        <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(12px, 2vw, 30px) 0" }} />
+
+        {/* ── EMOTIONAL REGISTER ── */}
+        {emotionalRegister && (
+          <div>
+            <h3 className="text-center" style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(6px, 1vw, 14px)" }}>
+              Emotional Register
+            </h3>
+            <div className="grid grid-cols-3 text-center" style={{ gap: "clamp(8px, 1.4vw, 20px)" }}>
+              <div>
+                <p style={{ fontWeight: 600, fontSize: "clamp(8px, 1vw, 13px)", marginBottom: 4 }}>Weather</p>
+                <p style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted }}>{emotionalRegister.weather}</p>
+              </div>
+              <div>
+                <p style={{ fontWeight: 600, fontSize: "clamp(8px, 1vw, 13px)", marginBottom: 4 }}>Personality</p>
+                <p style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted }}>{emotionalRegister.personality}</p>
+              </div>
+              <div>
+                <p style={{ fontWeight: 600, fontSize: "clamp(8px, 1vw, 13px)", marginBottom: 4 }}>Name</p>
+                <p style={{ fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted }}>{emotionalRegister.asName}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Divider */}
+        <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(12px, 2vw, 24px) 0" }} />
+
+        {/* ── QUOTE ── */}
+        {summaryQuote && (
+          <p
+            className="text-center"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 700,
+              fontStyle: "italic",
+              fontSize: "clamp(12px, 1.8vw, 20px)",
+              lineHeight: 1.5,
+              color: text,
+            }}
+          >
+            &ldquo;{summaryQuote}&rdquo;
+          </p>
+        )}
+
+        {/* Footer */}
+        <p
+          className="text-center mt-auto"
+          style={{
+            fontSize: "clamp(6px, 0.7vw, 9px)",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: textFaint,
+            paddingTop: "clamp(8px, 1.4vw, 20px)",
+          }}
+        >
+          Word Anatomy
+        </p>
+      </div>
+    </div>
+  );
+}

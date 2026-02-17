@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import type { NameAnalysis, ColourPalette, ImageryStyle } from "../../types/name";
 import { PALETTES, IMAGERY_STYLES } from "../../types/name";
-// PosterPreview removed - using unified single-poster layout
+import EditorialPoster from "../../components/EditorialPoster";
 
 type Step = "name" | "analyzing" | "etymology" | "phonetics" | "morphology" | "palette" | "imagery" | "preview";
 
@@ -382,111 +381,16 @@ export default function CreatePage() {
         )}
 
         {/* Step: Preview */}
-        {step === "preview" && analysis && (() => {
-          const p = PALETTES[palette];
-          return (
+        {step === "preview" && analysis && (
           <div className="space-y-8">
-            {/* Single unified poster */}
-            <div className="max-w-lg mx-auto">
-              <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-[#1A1612] poster-shadow">
-                {/* Art background */}
-                {artGenerating && !artUrl && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
-                    <div className="w-12 h-12 border-2 rounded-full animate-spin" style={{ borderColor: p.accent, borderTopColor: "transparent" }} />
-                    <p className="text-sm" style={{ color: `${p.text}99` }}>Generating your artwork...</p>
-                    <p className="text-xs" style={{ color: `${p.text}55` }}>This takes about 15-20 seconds</p>
-                  </div>
-                )}
-                {artUrl && (
-                  <Image
-                    src={artUrl}
-                    alt={`${analysis.name} artwork`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 512px"
-                    unoptimized
-                  />
-                )}
-
-                {/* Gradient overlays for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/50" />
-
-                {/* All content overlaid */}
-                <div className="absolute inset-0 flex flex-col justify-between p-7 md:p-9">
-                  {/* Top: Name */}
-                  <div>
-                    <h2
-                      className="text-5xl md:text-6xl font-bold tracking-[0.12em] uppercase leading-none"
-                      style={{ color: p.accent }}
-                    >
-                      {analysis.name}
-                    </h2>
-                    <p className="font-mono text-lg mt-2" style={{ color: `${p.accent}CC` }}>
-                      {analysis.phonetics.ipa}
-                    </p>
-                    <p className="text-[10px] mt-1" style={{ color: `${p.text}55` }}>
-                      {analysis.phonetics.stressPattern}
-                    </p>
-                  </div>
-
-                  {/* Bottom: Linguistic data */}
-                  <div className="space-y-4">
-                    {/* Etymology */}
-                    <div>
-                      <p className="text-[9px] tracking-[0.25em] uppercase mb-1" style={{ color: p.accent }}>
-                        Etymology
-                      </p>
-                      <p className="text-xs leading-relaxed" style={{ color: `${p.text}BB` }}>
-                        From {analysis.etymology.originLanguage},{" "}
-                        <span className="font-mono" style={{ color: p.accent }}>
-                          {analysis.etymology.rootWord}
-                        </span>
-                        , meaning &ldquo;{analysis.etymology.meaning}&rdquo;
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 mt-2">
-                        {analysis.etymology.languageFamilyTree.map((lang, i) => (
-                          <span
-                            key={i}
-                            className="text-[8px] px-2 py-0.5 rounded-full"
-                            style={{ border: `1px solid ${p.accent}44`, color: `${p.accent}CC` }}
-                          >
-                            {lang}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Morphemes */}
-                    <div>
-                      <p className="text-[9px] tracking-[0.25em] uppercase mb-1" style={{ color: p.accent }}>
-                        Morphology
-                      </p>
-                      <div className="flex gap-2">
-                        {analysis.morphology.morphemes.map((m, i) => (
-                          <div
-                            key={i}
-                            className="px-3 py-1.5 rounded backdrop-blur-sm text-center"
-                            style={{ backgroundColor: `${p.accent}15`, border: `1px solid ${p.accent}22` }}
-                          >
-                            <span className="block font-mono text-sm" style={{ color: p.accent }}>{m.part}</span>
-                            <span className="block text-[7px] uppercase tracking-wider" style={{ color: `${p.text}55` }}>{m.type}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Cognates */}
-                    <div className="flex flex-wrap gap-x-5 gap-y-1">
-                      {analysis.crossLinguistic.cognates.slice(0, 5).map((c, i) => (
-                        <span key={i} className="text-[9px]" style={{ color: `${p.text}55` }}>
-                          <span className="uppercase tracking-wider">{c.language}</span>{" "}
-                          <span className="font-mono" style={{ color: `${p.accent}88` }}>{c.word}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {/* Editorial Poster */}
+            <div className="max-w-3xl mx-auto poster-shadow rounded-lg overflow-hidden">
+              <EditorialPoster
+                analysis={analysis}
+                palette={palette}
+                artUrl={artUrl}
+                generating={artGenerating}
+              />
             </div>
 
             <div className="max-w-lg mx-auto space-y-4">
@@ -520,8 +424,7 @@ export default function CreatePage() {
               </button>
             </div>
           </div>
-          );
-        })()}
+        )}
       </div>
     </main>
   );

@@ -3,16 +3,21 @@ export interface NameAnalysis {
   etymology: {
     originLanguage: string;
     rootWord: string;
+    rootMeaning?: string;
     meaning: string;
+    age?: string;
     languageFamilyTree: string[];
     culturalSignificance: string;
     historicalNotes: string;
   };
   phonetics: {
     ipa: string;
-    sounds: { symbol: string; description: string }[];
+    sounds: { symbol: string; type?: string; description: string }[];
     stressPattern: string;
+    stressType?: string;
+    stressDescription?: string;
     rhythm: string;
+    mouthJourney?: string;
     phonosemantic: string;
   };
   morphology: {
@@ -21,6 +26,17 @@ export interface NameAnalysis {
     grammaticalJourney: string;
     relatedForms: string[];
   };
+  phonaesthesia?: { symbol: string; line1: string; line2: string }[];
+  semanticWeb?: {
+    associations: string[];
+    coreValues: string;
+  };
+  emotionalRegister?: {
+    weather: string;
+    personality: string;
+    asName: string;
+  };
+  summaryQuote?: string;
   crossLinguistic: {
     cognates: { language: string; word: string }[];
     famousBearers: string[];
