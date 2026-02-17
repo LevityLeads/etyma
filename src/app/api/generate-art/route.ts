@@ -26,7 +26,9 @@ export async function POST(req: NextRequest) {
       palette === "monochrome" ? "black white and silver monochrome" :
       "warm amber and gold tones";
 
-    const prompt = `Single centered illustration of a "${meaning}" symbol, ${styleDesc}, watercolor wash style, faded and vintage, ${paletteTone}, on a pure white background, vignette, the symbol should be a single elegant motif centered in the frame, soft edges fading into white, like a vintage stamp or watermark, artistic and refined, no text, no words, no letters, no typography`;
+    const isDark = ["cool-midnight", "ocean", "monochrome"].includes(palette);
+    const bgDesc = isDark ? "on a very dark, near-black background, fading into darkness" : "on a pure white background, fading into white";
+    const prompt = `Single centered illustration of a "${meaning}" symbol, ${styleDesc}, watercolor wash style, faded and vintage, ${paletteTone}, ${bgDesc}, vignette, the symbol should be a single elegant motif centered in the frame, soft edges, like a vintage stamp or watermark, artistic and refined, no text, no words, no letters, no typography`;
 
     const response = await fetch("https://api.kie.ai/api/v1/flux/kontext/generate", {
       method: "POST",

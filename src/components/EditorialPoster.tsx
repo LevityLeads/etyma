@@ -12,10 +12,10 @@ interface EditorialPosterProps {
 
 export default function EditorialPoster({ analysis, palette, artUrl, generating }: EditorialPosterProps) {
   const p = PALETTES[palette];
-  const isLight = palette === "warm-gold" || palette === "earth-tones";
+  const isLight = palette === "warm-gold" || palette === "earth-tones" || palette === "botanical";
 
   // Adaptive colours
-  const bg = isLight ? "#F5F0E8" : p.bg;
+  const bg = isLight ? "#F5F0E8" : "#141210";
   const text = isLight ? "#1E1E1E" : p.text;
   const accent = p.accent;
   const textMuted = isLight ? "#6B6560" : `${p.text}99`;
@@ -211,8 +211,8 @@ export default function EditorialPoster({ analysis, palette, artUrl, generating 
                 <div className="relative flex items-center justify-center" style={{ height: "clamp(80px, 12vw, 160px)" }}>
                   {/* Center node */}
                   <div
-                    className="absolute z-10 px-3 py-1.5 rounded"
-                    style={{ border: `1px solid ${textFaint}`, fontSize: "clamp(8px, 1vw, 11px)", fontWeight: 700, backgroundColor: bg }}
+                    className="absolute z-10 px-3 py-1.5"
+                    style={{ fontSize: "clamp(8px, 1vw, 11px)", fontWeight: 700 }}
                   >
                     {analysis.name.toUpperCase()}
                   </div>
