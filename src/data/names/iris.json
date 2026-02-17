@@ -1,0 +1,77 @@
+{
+  "name": "Iris",
+  "etymology": {
+    "originLanguage": "Greek",
+    "rootWord": "Ἶρις (Iris)",
+    "meaning": "Rainbow, messenger of the gods",
+    "languageFamilyTree": [
+      "Proto-Indo-European *h₁ey- (to go)",
+      "Proto-Germanic *iriz-",
+      "Ancient Greek Ἶρις (Iris)",
+      "Modern English Iris"
+    ],
+    "culturalSignificance": "Iris is associated with the Greek goddess of the rainbow and a messenger. In various cultures, it symbolizes hope and connection.",
+    "historicalNotes": "The name Iris has been used since ancient Greek times, denoting beauty and divine communication. It also gained popularity in the Renaissance period as an emblematic flower name."
+  },
+  "phonetics": {
+    "ipa": "/ˈaɪ.rɪs/",
+    "sounds": [
+      {
+        "symbol": "ɪ",
+        "description": "near-close front unrounded vowel"
+      },
+      {
+        "symbol": "aɪ",
+        "description": "diphthong starting from open front vowel to near-close front vowel"
+      },
+      {
+        "symbol": "r",
+        "description": "voiced alveolar approximant"
+      },
+      {
+        "symbol": "s",
+        "description": "voiceless alveolar fricative"
+      }
+    ],
+    "stressPattern": "iamb (da-DA)",
+    "rhythm": "The name flows smoothly with alternating stresses, giving it a lyrical quality.",
+    "phonosemantic": "The sounds convey brightness and clarity, evoking imagery of light and beauty."
+  },
+  "morphology": {
+    "morphemes": [
+      {
+        "part": "Iris",
+        "type": "root",
+        "meaning": "Rainbow or messenger"
+      }
+    ],
+    "wordClass": "noun",
+    "grammaticalJourney": "Originally a common noun referring to the rainbow, it transitioned into a proper noun through mythological and floral significance. Its use as a name reflects its rich cultural heritage.",
+    "relatedForms": [
+      "Irena",
+      "Irisht",
+      "Irisa",
+      "Iryna"
+    ]
+  },
+  "crossLinguistic": {
+    "cognates": [
+      {
+        "language": "Spanish",
+        "word": "Iris"
+      },
+      {
+        "language": "Italian",
+        "word": "Iride"
+      },
+      {
+        "language": "Latin",
+        "word": "Iris"
+      }
+    ],
+    "famousBearers": [
+      "Iris Apfel (American businesswoman and fashion icon)",
+      "Iris Murdoch (British novelist and philosopher)"
+    ]
+  }
+}

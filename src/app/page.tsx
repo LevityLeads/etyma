@@ -95,8 +95,8 @@ export default function Home() {
             <a href="#etymology" className="text-[#8A8078] hover:text-[#1A1612] transition-colors">Etymology</a>
             <a href="#phonetics" className="text-[#8A8078] hover:text-[#1A1612] transition-colors">Phonetics</a>
             <a href="#morphology" className="text-[#8A8078] hover:text-[#1A1612] transition-colors">Morphology</a>
-            <a href="#gallery" className="text-[#8A8078] hover:text-[#1A1612] transition-colors">Gallery</a>
-            <a href="#order" className="btn-primary !py-2 !px-5 text-xs">Order Yours</a>
+            <a href="/gallery" className="text-[#8A8078] hover:text-[#1A1612] transition-colors">Gallery</a>
+            <a href="/create" className="btn-primary !py-2 !px-5 text-xs">Create Yours</a>
           </div>
         </div>
       </nav>

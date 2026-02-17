@@ -1,0 +1,87 @@
+{
+  "name": "Willow",
+  "etymology": {
+    "originLanguage": "Old English",
+    "rootWord": "willu",
+    "meaning": "graceful tree associated with flexibility",
+    "languageFamilyTree": [
+      "Proto-Indo-European *wel-",
+      "Proto-Germanic *wilhō",
+      "Old English wilgæ",
+      "Modern English Willow"
+    ],
+    "culturalSignificance": "The willow tree has long been revered in various cultures for its flexibility and resilience. Symbolically, it represents adaptability and the ability to thrive in difficult conditions.",
+    "historicalNotes": "The name originated from the Old English term for the willow tree. It evolved from being a common noun to a proper noun as people began to use it metaphorically for its graceful and supportive qualities."
+  },
+  "phonetics": {
+    "ipa": "/ˈwɪloʊ/",
+    "sounds": [
+      {
+        "symbol": "w",
+        "description": "voiced labial-velar approximant"
+      },
+      {
+        "symbol": "ɪ",
+        "description": "near-close near-front unrounded vowel"
+      },
+      {
+        "symbol": "l",
+        "description": "voiced alveolar lateral approximant"
+      },
+      {
+        "symbol": "oʊ",
+        "description": "diphthong consisting of a mid-back rounded vowel followed by a near-close back rounded vowel"
+      }
+    ],
+    "stressPattern": "trochee (WIL-lo)",
+    "rhythm": "The name has a gentle and flowing rhythm, reflecting the nature of the willow tree itself.",
+    "phonosemantic": "The sound profile lends a sense of softness and fluidity, evoking images of nature and tranquility."
+  },
+  "morphology": {
+    "morphemes": [
+      {
+        "part": "willow",
+        "type": "root",
+        "meaning": "a type of tree"
+      },
+      {
+        "part": "w",
+        "type": "prefix",
+        "meaning": "none"
+      },
+      {
+        "part": "ow",
+        "type": "suffix",
+        "meaning": "none"
+      }
+    ],
+    "wordClass": "noun",
+    "grammaticalJourney": "Initially a common noun, it began to be adopted as a name in the 19th century, reflecting a trend of nature-inspired naming.",
+    "relatedForms": [
+      "Willa",
+      "Willo",
+      "Wilhelmina",
+      "Will"
+    ]
+  },
+  "crossLinguistic": {
+    "cognates": [
+      {
+        "language": "French",
+        "word": "saule"
+      },
+      {
+        "language": "Spanish",
+        "word": "sauce"
+      },
+      {
+        "language": "German",
+        "word": "Weide"
+      }
+    ],
+    "famousBearers": [
+      "Willow Smith (American singer and actress)",
+      "Willow Bay (American television journalist and author)"
+    ]
+  }
+}

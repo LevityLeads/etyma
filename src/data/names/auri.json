@@ -1,0 +1,73 @@
+{
+  "name": "Auri",
+  "etymology": {
+    "originLanguage": "Latin",
+    "rootWord": "aureus",
+    "meaning": "golden or gilded",
+    "languageFamilyTree": [
+      "Proto-Indo-European *awei-",
+      "Proto-Italic *aureus",
+      "Latin aureus",
+      "Modern English Auri"
+    ],
+    "culturalSignificance": "The name Auri evokes connotations of wealth and beauty, drawing from its association with gold. In various cultures, gold is often linked to divinity and nobility.",
+    "historicalNotes": "Auri's roots can be traced back to the Latin term 'aureus', which meant golden. The term has been used historically to describe coins made from gold, showcasing its significance in commerce and status."
+  },
+  "phonetics": {
+    "ipa": "/ˈɔːri/",
+    "sounds": [
+      {
+        "symbol": "ɔː",
+        "description": "open-mid back rounded vowel"
+      },
+      {
+        "symbol": "r",
+        "description": "voiced alveolar approximant"
+      },
+      {
+        "symbol": "i",
+        "description": "close front unrounded vowel"
+      }
+    ],
+    "stressPattern": "trochee (DA-da)",
+    "rhythm": "The name Auri flows smoothly with a gentle rise and fall, making it pleasant to the ear.",
+    "phonosemantic": "The sound profile suggests warmth and luxury, evocative of sunlight glinting off gold."
+  },
+  "morphology": {
+    "morphemes": [
+      {
+        "part": "auri",
+        "type": "root",
+        "meaning": "golden"
+      }
+    ],
+    "wordClass": "adjective",
+    "grammaticalJourney": "Initially an adjective in Latin, signifying a quality of being golden, Auri transitioned into a proper noun as it became associated with names and identities in various contexts.",
+    "relatedForms": [
+      "Aurelia",
+      "Aureo",
+      "Auryn",
+      "Aurel"
+    ]
+  },
+  "crossLinguistic": {
+    "cognates": [
+      {
+        "language": "Spanish",
+        "word": "oro"
+      },
+      {
+        "language": "French",
+        "word": "or"
+      },
+      {
+        "language": "Italian",
+        "word": "oro"
+      }
+    ],
+    "famousBearers": [
+      "Auri from 'The Kingkiller Chronicle' (a beloved character known for her connection to gold and artistry)",
+      "Auri Lee (an author known for her works on myth and symbolism)"
+    ]
+  }
+}

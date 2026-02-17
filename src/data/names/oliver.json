@@ -1,0 +1,86 @@
+{
+  "name": "Oliver",
+  "etymology": {
+    "originLanguage": "Old French",
+    "rootWord": "olivier",
+    "meaning": "olive tree; symbol of peace",
+    "languageFamilyTree": [
+      "Proto-Indo-European *olīva",
+      "Latin oliva",
+      "Old French olivier",
+      "Modern English Oliver"
+    ],
+    "culturalSignificance": "Olive trees have long been a symbol of peace and fertility in various cultures. The name Oliver has become associated with wisdom and growth throughout literature.",
+    "historicalNotes": "The name gained popularity in the Middle Ages in France and subsequently spread to England. Its usage was further popularized by literature, particularly Charles Dickens' character Oliver Twist in the 19th century."
+  },
+  "phonetics": {
+    "ipa": "/ˈɒlɪvə/",
+    "sounds": [
+      {
+        "symbol": "ɒ",
+        "description": "open back rounded vowel"
+      },
+      {
+        "symbol": "l",
+        "description": "voiced alveolar lateral approximant"
+      },
+      {
+        "symbol": "ɪ",
+        "description": "near-close near-front unrounded vowel"
+      },
+      {
+        "symbol": "v",
+        "description": "voiced labiodental fricative"
+      },
+      {
+        "symbol": "ə",
+        "description": "mid-central vowel"
+      }
+    ],
+    "stressPattern": "trochee (OLI-ver)",
+    "rhythm": "The name has a rhythmic flow that is both gentle and melodic, making it pleasing to say.",
+    "phonosemantic": "The sounds create a sense of warmth and approachability, suggesting nurturing qualities."
+  },
+  "morphology": {
+    "morphemes": [
+      {
+        "part": "ol",
+        "type": "root",
+        "meaning": "pertaining to olives"
+      },
+      {
+        "part": "iver",
+        "type": "suffix",
+        "meaning": "denoting a person or thing"
+      }
+    ],
+    "wordClass": "noun",
+    "grammaticalJourney": "Originally derived from the Latin word for olive, it shifted from a common noun to a proper noun as it began to be used as a given name in the medieval period. The suffix '-er' turned it into a name denoting a person associated with olives.",
+    "relatedForms": [
+      "Ollie",
+      "Olivia",
+      "Olivier",
+      "Olive"
+    ]
+  },
+  "crossLinguistic": {
+    "cognates": [
+      {
+        "language": "French",
+        "word": "Olivier"
+      },
+      {
+        "language": "Italian",
+        "word": "Olivo"
+      },
+      {
+        "language": "Spanish",
+        "word": "Olivo"
+      }
+    ],
+    "famousBearers": [
+      "Oliver Twist (fictional character by Charles Dickens)",
+      "Oliver Cromwell (English military and political leader)"
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "name": "Luna",
+  "etymology": {
+    "originLanguage": "Latin",
+    "rootWord": "lūna",
+    "meaning": "moon, light of the moon",
+    "languageFamilyTree": [
+      "Proto-Indo-European *mēns-",
+      "Proto-Italic *lūna",
+      "Latin lūna",
+      "Modern English Luna"
+    ],
+    "culturalSignificance": "In Roman mythology, Luna was the goddess of the moon, symbolizing purity and calmness. Her associations with the night sky have made the name Luna popular in various cultures.",
+    "historicalNotes": "The name Luna originates from Latin, where it was used not only to refer to the moon but also as a deity. Over time, Luna transitioned from a common noun to a proper noun, becoming popular in literature and modern languages."
+  },
+  "phonetics": {
+    "ipa": "/ˈluː.nə/",
+    "sounds": [
+      {
+        "symbol": "l",
+        "description": "voiced alveolar lateral approximant"
+      },
+      {
+        "symbol": "uː",
+        "description": "close back rounded vowel"
+      },
+      {
+        "symbol": "n",
+        "description": "voiced alveolar nasal"
+      },
+      {
+        "symbol": "ə",
+        "description": "open-mid central vowel"
+      }
+    ],
+    "stressPattern": "trochee (DA-da)",
+    "rhythm": "Luna has a flowing, light rhythm that carries a gentle quality, reminiscent of the moon's soft glow.",
+    "phonosemantic": "The sounds evoke feelings of tranquility and serenity, suitable for the moon's calming imagery."
+  },
+  "morphology": {
+    "morphemes": [
+      {
+        "part": "lūn",
+        "type": "root",
+        "meaning": "moon"
+      },
+      {
+        "part": "a",
+        "type": "suffix",
+        "meaning": "feminine singular suffix"
+      }
+    ],
+    "wordClass": "noun",
+    "grammaticalJourney": "Initially a common noun in Latin, it evolved into a proper noun to refer to the divine representation of the moon, particularly in Roman culture and mythology.",
+    "relatedForms": [
+      "Lunette",
+      "Lunaria",
+      "Lunetta",
+      "Lunaris"
+    ]
+  },
+  "crossLinguistic": {
+    "cognates": [
+      {
+        "language": "Spanish",
+        "word": "luna"
+      },
+      {
+        "language": "Italian",
+        "word": "luna"
+      },
+      {
+        "language": "French",
+        "word": "lune"
+      },
+      {
+        "language": "Romanian",
+        "word": "lună"
+      }
+    ],
+    "famousBearers": [
+      "Luna Lovegood (character from 'Harry Potter' series)",
+      "Luna Luster (popular personality and social media influencer)"
+    ]
+  }
+}

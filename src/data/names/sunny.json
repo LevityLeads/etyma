@@ -1,0 +1,78 @@
+{
+  "name": "Sunny",
+  "etymology": {
+    "originLanguage": "Middle English",
+    "rootWord": "sunne",
+    "meaning": "cheerful, resembling the sun",
+    "languageFamilyTree": [
+      "Proto-Indo-European *sóh₂wṓs",
+      "Proto-Germanic *sunnōn",
+      "Old English sunnan",
+      "Modern English Sunny"
+    ],
+    "culturalSignificance": "The name Sunny evokes warmth and positivity, linked closely to sunshine. It reflects a cheerful disposition and is often used in various cultures as a term of endearment.",
+    "historicalNotes": "Initially derived from the Old English word for 'sun', the name Sunny became more prevalent as a personal name in the 20th century. It has historically been associated with bright and jovial personalities."
+  },
+  "phonetics": {
+    "ipa": "/ˈsʌni/",
+    "sounds": [
+      {
+        "symbol": "s",
+        "description": "voiceless alveolar fricative"
+      },
+      {
+        "symbol": "ʌ",
+        "description": "open-mid back unrounded vowel"
+      },
+      {
+        "symbol": "n",
+        "description": "voiced alveolar nasal"
+      },
+      {
+        "symbol": "i",
+        "description": "close front unrounded vowel"
+      }
+    ],
+    "stressPattern": "trochee (DA-da)",
+    "rhythm": "The name has a light and upbeat rhythm, making it sound playful and inviting.",
+    "phonosemantic": "The combination of bright, open vowels and soft consonants suggests warmth and joy, creating a positive emotional resonance."
+  },
+  "morphology": {
+    "morphemes": [
+      {
+        "part": "sun",
+        "type": "root",
+        "meaning": "sun"
+      },
+      {
+        "part": "-y",
+        "type": "suffix",
+        "meaning": "having the quality of"
+      }
+    ],
+    "wordClass": "adjective",
+    "grammaticalJourney": "Originally an adjective describing something as 'sun-like', Sunny transitioned to a personal name reflecting the qualities of brightness and cheerfulness. It has continued to evolve as a familiar name in modern usage.",
+    "relatedForms": [
+      "Sun",
+      "Sonny",
+      "Sunnie",
+      "Sunnyboy"
+    ]
+  },
+  "crossLinguistic": {
+    "cognates": [
+      {
+        "language": "German",
+        "word": "sonnig"
+      },
+      {
+        "language": "Spanish",
+        "word": "soleado"
+      }
+    ],
+    "famousBearers": [
+      "Sunny Leone (Indian-American actress and model)",
+      "Sunny Deol (Indian actor and film director)"
+    ]
+  }
+}

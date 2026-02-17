@@ -1,0 +1,102 @@
+{
+  "name": "Alexander",
+  "etymology": {
+    "originLanguage": "Ancient Greek",
+    "rootWord": "ἀλέξω (alexō) and ἀνήρ (anēr)",
+    "meaning": "defender of men or protector of mankind",
+    "languageFamilyTree": [
+      "Proto-Indo-European *h₁el- (to nourish, grow)",
+      "Proto-Germanic *al- (to guard)",
+      "Ancient Greek ἀλέξανδρος (alexandros)",
+      "Modern English Alexander"
+    ],
+    "culturalSignificance": "The name Alexander has been prominent throughout history, often associated with legendary figures such as Alexander the Great, who spread Hellenistic culture across continents. It symbolizes leadership, valor, and the spirit of conquest.",
+    "historicalNotes": "The name Alexander gained popularity due to its association with historical leaders and rulers. It transitioned from a common Greek name to a classic name in various cultures through Latin and medieval adaptations."
+  },
+  "phonetics": {
+    "ipa": "/ˌæl.ɪɡˈzæn.dər/",
+    "sounds": [
+      {
+        "symbol": "æ",
+        "description": "open front unrounded vowel"
+      },
+      {
+        "symbol": "l",
+        "description": "voiced alveolar lateral approximant"
+      },
+      {
+        "symbol": "ɪ",
+        "description": "close front unrounded vowel"
+      },
+      {
+        "symbol": "ɡ",
+        "description": "voiced velar plosive"
+      },
+      {
+        "symbol": "z",
+        "description": "voiced dental fricative"
+      },
+      {
+        "symbol": "æn",
+        "description": "open front unrounded nasal"
+      },
+      {
+        "symbol": "d",
+        "description": "voiced alveolar plosive"
+      },
+      {
+        "symbol": "ər",
+        "description": "mid-central vowel with a rhotic quality"
+      }
+    ],
+    "stressPattern": "trochee (DA-da-da)",
+    "rhythm": "The name has a strong rhythmic quality, balancing between strong and weak syllables, giving it a dynamic and commanding presence.",
+    "phonosemantic": "The sturdy consonants and open vowels evoke a sense of strength and nobility, making it feel authoritative and grand."
+  },
+  "morphology": {
+    "morphemes": [
+      {
+        "part": "alex",
+        "type": "root",
+        "meaning": "to defend"
+      },
+      {
+        "part": "ander",
+        "type": "root",
+        "meaning": "man"
+      }
+    ],
+    "wordClass": "common noun",
+    "grammaticalJourney": "Initially a common noun in Ancient Greek, the combination of its roots facilitated its use as a personal name. Over centuries, it became widely recognized as a proper noun.",
+    "relatedForms": [
+      "Alex",
+      "Lex",
+      "Sandra",
+      "Alessandro"
+    ]
+  },
+  "crossLinguistic": {
+    "cognates": [
+      {
+        "language": "Spanish",
+        "word": "Alejandro"
+      },
+      {
+        "language": "Italian",
+        "word": "Alessandro"
+      },
+      {
+        "language": "Russian",
+        "word": "Александр"
+      },
+      {
+        "language": "French",
+        "word": "Alexandre"
+      }
+    ],
+    "famousBearers": [
+      "Alexander the Great (Macedonian king and conqueror)",
+      "Alexander Hamilton (Founding Father of the United States)"
+    ]
+  }
+}
