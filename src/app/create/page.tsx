@@ -4,8 +4,10 @@ import { useState, useEffect, useCallback } from "react";
 import type { NameAnalysis, ColourPalette, ImageryStyle } from "../../types/name";
 import { PALETTES, IMAGERY_STYLES } from "../../types/name";
 import EditorialPoster from "../../components/EditorialPoster";
+import ClassicPoster from "../../components/ClassicPoster";
 
 type Step = "name" | "analyzing" | "etymology" | "phonetics" | "morphology" | "palette" | "imagery" | "preview";
+type PosterLayout = "detailed" | "classic";
 
 const STEP_ORDER: Step[] = ["name", "analyzing", "etymology", "phonetics", "morphology", "palette", "imagery", "preview"];
 
@@ -18,6 +20,7 @@ export default function CreatePage() {
   const [error, setError] = useState("");
   const [artTaskId, setArtTaskId] = useState<string | null>(null);
   const [artUrl, setArtUrl] = useState<string | null>(null);
+  const [posterLayout, setPosterLayout] = useState<PosterLayout>("detailed");
   const [artGenerating, setArtGenerating] = useState(false);
 
   const stepIndex = STEP_ORDER.indexOf(step);
@@ -383,15 +386,44 @@ export default function CreatePage() {
         {/* Step: Preview */}
         {step === "preview" && analysis && (
           <div className="space-y-8">
-            {/* Editorial Poster */}
-            <div className="max-w-3xl mx-auto poster-shadow rounded-lg overflow-hidden">
-              <EditorialPoster
-                analysis={analysis}
-                palette={palette}
-                artUrl={artUrl}
-                generating={artGenerating}
-              />
+            {/* Layout toggle */}
+            <div className="flex justify-center gap-2">
+              <button
+                onClick={() => setPosterLayout("detailed")}
+                className={`px-4 py-2 rounded-full text-sm transition-all ${posterLayout === "detailed" ? "bg-[#D4930D] text-[#1A1612] font-semibold" : "bg-[#2A2520] text-[#C4BAB0] hover:bg-[#3A3530]"}`}
+              >
+                Detailed
+              </button>
+              <button
+                onClick={() => setPosterLayout("classic")}
+                className={`px-4 py-2 rounded-full text-sm transition-all ${posterLayout === "classic" ? "bg-[#D4930D] text-[#1A1612] font-semibold" : "bg-[#2A2520] text-[#C4BAB0] hover:bg-[#3A3530]"}`}
+              >
+                Classic
+              </button>
             </div>
+
+            {/* Poster */}
+            {posterLayout === "detailed" ? (
+              <div className="max-w-3xl mx-auto poster-shadow rounded-lg overflow-hidden">
+                <EditorialPoster
+                  analysis={analysis}
+                  palette={palette}
+                  artUrl={artUrl}
+                  generating={artGenerating}
+                />
+              </div>
+            ) : (
+              <div className="flex justify-center">
+                <div className="poster-shadow rounded-lg overflow-hidden">
+                  <ClassicPoster
+                    analysis={analysis}
+                    palette={palette}
+                    artUrl={artUrl}
+                    generating={artGenerating}
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="max-w-lg mx-auto space-y-4">
               {/* Regenerate */}

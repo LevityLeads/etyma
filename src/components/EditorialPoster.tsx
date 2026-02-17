@@ -41,19 +41,11 @@ export default function EditorialPoster({ analysis, palette, artUrl, generating 
           {/* Art watermark behind name */}
           {artUrl && (
             <div
-              className="absolute left-1/2 -translate-x-1/2"
-              style={{ top: "-10%", width: "50%", aspectRatio: "1/1", opacity: 0.2 }}
+              className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              style={{ top: "12%", width: "70%", maxWidth: 400, opacity: 0.18 }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={artUrl} alt="" className="w-full h-full object-contain" />
-            </div>
-          )}
-          {generating && !artUrl && (
-            <div
-              className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center"
-              style={{ top: "5%", width: "40%", aspectRatio: "1/1", opacity: 0.3 }}
-            >
-              <div className="w-12 h-12 border-2 rounded-full animate-spin" style={{ borderColor: accent, borderTopColor: "transparent" }} />
+              <img src={artUrl} alt="" className="w-full h-auto object-contain" style={{ mixBlendMode: isLight ? "multiply" : "screen" }} />
             </div>
           )}
           <h1
