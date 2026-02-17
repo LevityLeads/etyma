@@ -1,36 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const SHEET_ID = "1hbKOF1nSaJbA_dV2e90JPeR9lrMBHQx29bbBJQ8vV8Q";
+const SHEET_ID = "1h8ThYbkRvSagZatk9H99CGkryEz9RvoistyjEabAuZM";
 const API_BASE = "https://google-api-proxy-production.up.railway.app";
-const API_KEY = process.env.GOOGLE_API_KEY || "123123123";
+const API_KEY = "123123123";
 
 export async function POST(req: NextRequest) {
   try {
     const { email } = await req.json();
-    if (!email || !email.includes("@")) {
-      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+    if (!email || typeof email !== "string") {
+      return NextResponse.json({ error: "Email required" }, { status: 400 });
     }
 
-    const date = new Date().toISOString();
-    const res = await fetch(
-      `${API_BASE}/sheets/${SHEET_ID}/values/Sheet1!A:D/append?account=levity&key=${API_KEY}`,
+    const timestamp = new Date().toISOString();
+
+    await fetch(
+      `${API_BASE}/sheets/${SHEET_ID}/values/Waitlist!A:C/append?account=levity`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": API_KEY,
+        },
         body: JSON.stringify({
-          values: [[email, "", "waitlist", date]],
+          values: [[email.trim(), timestamp, "website"]],
         }),
       }
     );
 
-    if (!res.ok) {
-      console.error("Sheet append failed:", await res.text());
-      return NextResponse.json({ error: "Failed to save" }, { status: 500 });
-    }
-
     return NextResponse.json({ ok: true });
-  } catch (e) {
-    console.error("Waitlist error:", e);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  } catch (error) {
+    console.error("Waitlist error:", error);
+    return NextResponse.json({ error: "Failed" }, { status: 500 });
   }
 }

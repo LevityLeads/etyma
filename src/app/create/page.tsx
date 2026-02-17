@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import type { NameAnalysis, ColourPalette, ImageryStyle } from "../../types/name";
 import { PALETTES, IMAGERY_STYLES } from "../../types/name";
 import PosterPreview from "../../components/PosterPreview";
@@ -16,8 +17,55 @@ export default function CreatePage() {
   const [palette, setPalette] = useState<ColourPalette>("warm-gold");
   const [imagery, setImagery] = useState<ImageryStyle>("abstract");
   const [error, setError] = useState("");
+  const [artTaskId, setArtTaskId] = useState<string | null>(null);
+  const [artUrl, setArtUrl] = useState<string | null>(null);
+  const [artGenerating, setArtGenerating] = useState(false);
 
   const stepIndex = STEP_ORDER.indexOf(step);
+
+  // Start art generation when entering preview step
+  const generateArt = useCallback(async () => {
+    if (!analysis) return;
+    setArtGenerating(true);
+    setArtUrl(null);
+    setArtTaskId(null);
+    try {
+      const res = await fetch("/api/generate-art", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: analysis.name,
+          meaning: analysis.etymology.meaning,
+          palette,
+          imagery,
+        }),
+      });
+      const data = await res.json();
+      if (data.taskId) setArtTaskId(data.taskId);
+    } catch {
+      setArtGenerating(false);
+    }
+  }, [analysis, palette, imagery]);
+
+  // Poll for art completion
+  useEffect(() => {
+    if (!artTaskId || artUrl) return;
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/art-status?taskId=${artTaskId}`);
+        const data = await res.json();
+        if (data.status === "complete" && data.imageUrl) {
+          setArtUrl(data.imageUrl);
+          setArtGenerating(false);
+          clearInterval(interval);
+        } else if (data.status === "failed") {
+          setArtGenerating(false);
+          clearInterval(interval);
+        }
+      } catch { /* keep polling */ }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [artTaskId, artUrl]);
 
   const goNext = () => {
     const next = STEP_ORDER[stepIndex + 1];
@@ -327,7 +375,7 @@ export default function CreatePage() {
 
             <div className="flex justify-between pt-4">
               <button onClick={goBack} className="btn-secondary">Back</button>
-              <button onClick={goNext} className="btn-primary">See Your Print</button>
+              <button onClick={() => { generateArt(); goNext(); }} className="btn-primary">Generate Your Print</button>
             </div>
           </div>
         )}
@@ -340,8 +388,42 @@ export default function CreatePage() {
               <h1 className="text-4xl font-bold">&ldquo;{analysis.name}&rdquo;</h1>
             </div>
 
-            <div className="max-w-md mx-auto">
-              <div className="poster-shadow rounded-lg overflow-hidden">
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* Generated Art */}
+              <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-[#1A1612]">
+                {artGenerating && !artUrl && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
+                    <div className="w-12 h-12 border-2 border-[#D4930D] border-t-transparent rounded-full animate-spin" />
+                    <p className="text-[#C4BAB0] text-sm">Generating your artwork...</p>
+                    <p className="text-[#8A8078] text-xs">This takes about 15-20 seconds</p>
+                  </div>
+                )}
+                {artUrl && (
+                  <Image
+                    src={artUrl}
+                    alt={`${analysis.name} custom artwork`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    unoptimized
+                  />
+                )}
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 flex flex-col justify-between p-6">
+                  <div>
+                    <h2 className="text-3xl font-bold tracking-[0.15em] uppercase" style={{ color: PALETTES[palette].accent }}>
+                      {analysis.name}
+                    </h2>
+                    <p className="text-[9px] tracking-[0.4em] uppercase mt-1 text-white/40">Word Anatomy by Etyma</p>
+                  </div>
+                  <div>
+                    <p className="font-mono text-xl" style={{ color: PALETTES[palette].accent }}>{analysis.phonetics.ipa}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Data poster */}
+              <div>
                 <PosterPreview analysis={analysis} palette={palette} />
               </div>
             </div>
@@ -356,13 +438,13 @@ export default function CreatePage() {
                 Buy Framed Print — £45
               </button>
               <p className="text-center text-xs text-[#C4BAB0]">
-                Coming soon. Join the waitlist to be notified.
+                Coming soon. Join the waitlist to be notified at launch.
               </p>
             </div>
 
             <div className="flex justify-between pt-4">
               <button onClick={goBack} className="btn-secondary">Back</button>
-              <button onClick={() => { setStep("name"); setAnalysis(null); setName(""); }} className="btn-secondary">
+              <button onClick={() => { setStep("name"); setAnalysis(null); setName(""); setArtUrl(null); setArtTaskId(null); }} className="btn-secondary">
                 Try Another Name
               </button>
             </div>
