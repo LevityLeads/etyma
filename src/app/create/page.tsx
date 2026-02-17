@@ -92,8 +92,9 @@ export default function CreatePage() {
       const data = await res.json();
       setAnalysis(data);
       setStep("etymology");
-    } catch {
-      setError("Something went wrong. Please try again.");
+    } catch (err) {
+      console.error("Analysis error:", err);
+      setError("Something went wrong analysing that name. Please try again.");
       setStep("name");
     }
   };
