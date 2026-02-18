@@ -65,6 +65,7 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
               letterSpacing: "0.15em",
               textTransform: "uppercase",
               lineHeight: 1.1,
+              textShadow: isLight ? "none" : `0 2px 12px ${bg}, 0 0px 40px ${bg}`,
             }}
           >
             {analysis.name}
@@ -77,6 +78,7 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
               marginTop: "clamp(4px, 0.8vw, 12px)",
               letterSpacing: "0.1em",
               color: textMuted,
+              textShadow: isLight ? "none" : `0 1px 8px ${bg}, 0 0px 24px ${bg}`,
             }}
           >
             {phonetics.ipa}
@@ -90,6 +92,7 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
                 fontStyle: "italic",
                 color: accent,
                 letterSpacing: "0.05em",
+                textShadow: isLight ? "none" : `0 1px 8px ${bg}, 0 0px 20px ${bg}`,
               }}
             >
               &ldquo;{etymology.meaning}&rdquo;
@@ -229,17 +232,17 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
             <h3 className="text-center" style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(8px, 1.4vw, 18px)" }}>
               Semantic Web
             </h3>
-            <svg viewBox="0 0 400 200" className="w-full" style={{ maxHeight: "clamp(80px, 12vw, 150px)" }}>
+            <svg viewBox="0 0 400 120" className="w-full" style={{ maxHeight: "clamp(60px, 10vw, 120px)" }}>
               {/* Connecting lines from centre to each node */}
               {(semanticWeb.associations || []).slice(0, 6).map((_, i) => {
-                const cx = 200, cy = 100;
+                const cx = 200, cy = 55;
                 const nodePositions = [
-                  { x: 70, y: 40 },
-                  { x: 330, y: 40 },
-                  { x: 40, y: 110 },
-                  { x: 360, y: 110 },
-                  { x: 120, y: 175 },
-                  { x: 280, y: 175 },
+                  { x: 80, y: 20 },
+                  { x: 320, y: 20 },
+                  { x: 30, y: 65 },
+                  { x: 370, y: 65 },
+                  { x: 110, y: 105 },
+                  { x: 290, y: 105 },
                 ];
                 const pos = nodePositions[i];
                 if (!pos) return null;
@@ -252,9 +255,9 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
                 [0, 2], [1, 3], [2, 4], [3, 5], [4, 5], [0, 1],
               ].map(([a, b], i) => {
                 const nodePositions = [
-                  { x: 70, y: 40 }, { x: 330, y: 40 },
-                  { x: 40, y: 110 }, { x: 360, y: 110 },
-                  { x: 120, y: 175 }, { x: 280, y: 175 },
+                  { x: 80, y: 20 }, { x: 320, y: 20 },
+                  { x: 30, y: 65 }, { x: 370, y: 65 },
+                  { x: 110, y: 105 }, { x: 290, y: 105 },
                 ];
                 const pa = nodePositions[a];
                 const pb = nodePositions[b];
@@ -264,23 +267,23 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
                 );
               })}
               {/* Centre node */}
-              <circle cx={200} cy={100} r={28} fill={accent} fillOpacity={0.1} stroke={accent} strokeOpacity={0.3} strokeWidth={0.8} />
-              <text x={200} y={104} textAnchor="middle" fill={text} fontSize={10} fontWeight={700} fontFamily="'Playfair Display', serif" letterSpacing="0.1em">
+              <circle cx={200} cy={55} r={22} fill={accent} fillOpacity={0.1} stroke={accent} strokeOpacity={0.3} strokeWidth={0.8} />
+              <text x={200} y={59} textAnchor="middle" fill={text} fontSize={8} fontWeight={700} fontFamily="'Playfair Display', serif" letterSpacing="0.1em">
                 {analysis.name.toUpperCase()}
               </text>
               {/* Association nodes */}
               {(semanticWeb.associations || []).slice(0, 6).map((word, i) => {
                 const nodePositions = [
-                  { x: 70, y: 40 }, { x: 330, y: 40 },
-                  { x: 40, y: 110 }, { x: 360, y: 110 },
-                  { x: 120, y: 175 }, { x: 280, y: 175 },
+                  { x: 80, y: 20 }, { x: 320, y: 20 },
+                  { x: 30, y: 65 }, { x: 370, y: 65 },
+                  { x: 110, y: 105 }, { x: 290, y: 105 },
                 ];
                 const pos = nodePositions[i];
                 if (!pos) return null;
                 return (
                   <g key={`node-${i}`}>
-                    <circle cx={pos.x} cy={pos.y} r={4} fill={accent} fillOpacity={0.3} />
-                    <text x={pos.x} y={pos.y + 16} textAnchor="middle" fill={textMuted} fontSize={9} fontFamily="sans-serif">
+                    <circle cx={pos.x} cy={pos.y} r={3} fill={accent} fillOpacity={0.3} />
+                    <text x={pos.x} y={pos.y - 8} textAnchor="middle" fill={textMuted} fontSize={8} fontFamily="sans-serif">
                       {word}
                     </text>
                   </g>
@@ -299,31 +302,6 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
         <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(8px, 1.2vw, 16px) 0" }} />
 
         {/* ── SOUND SYMBOLISM ── */}
-        {phonaesthesia && phonaesthesia.length > 0 && (
-          <div>
-            <h3 className="text-center" style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(8px, 1.4vw, 18px)" }}>
-              Sound Symbolism &middot; Phonaesthesia
-            </h3>
-            <div className="flex items-center justify-center" style={{ gap: "clamp(4px, 1vw, 16px)" }}>
-              {phonaesthesia.slice(0, 5).map((ph, i) => (
-                <div key={i} className="flex items-center" style={{ gap: "clamp(4px, 1vw, 16px)" }}>
-                  <div className="text-center">
-                    <span style={{ fontFamily: "serif", fontSize: "clamp(16px, 2.5vw, 32px)", display: "block" }}>{ph.symbol}</span>
-                    <span style={{ fontSize: "clamp(6px, 0.8vw, 10px)", color: textMuted, display: "block" }}>{ph.line1}</span>
-                    <span style={{ fontSize: "clamp(6px, 0.8vw, 10px)", color: textFaint, display: "block" }}>{ph.line2}</span>
-                  </div>
-                  {i < phonaesthesia.length - 1 && (
-                    <span style={{ color: accent, fontSize: "clamp(10px, 1.4vw, 18px)" }}>→</span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Divider */}
-        <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(8px, 1.2vw, 16px) 0" }} />
-
         {/* ── EMOTIONAL REGISTER ── */}
         {emotionalRegister && (
           <div>
