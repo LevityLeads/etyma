@@ -19,14 +19,23 @@ export async function POST(req: NextRequest) {
     }
 
     const styleDesc = STYLE_PROMPTS[imagery] || STYLE_PROMPTS.abstract;
-    const paletteTone = palette === "cool-midnight" ? "cool blue and silver tones" :
-      palette === "earth-tones" ? "warm earthy brown and amber tones" :
-      palette === "ocean" ? "deep teal and turquoise tones" :
-      palette === "botanical" ? "rich green and sage tones" :
-      palette === "monochrome" ? "black white and silver monochrome" :
-      "warm amber and gold tones";
+    const paletteTones: Record<string, string> = {
+      "warm-gold": "warm amber and gold tones",
+      "cool-midnight": "cool blue and silver tones",
+      "earth-tones": "warm earthy brown and amber tones",
+      "ocean": "deep teal and turquoise tones",
+      "botanical": "rich green and sage tones",
+      "monochrome": "black white and silver monochrome",
+      "rose": "soft pink and dusty rose tones",
+      "lavender": "gentle purple and violet tones",
+      "sunset": "warm orange and burnt sienna tones",
+      "slate": "cool grey and steel blue tones",
+      "copper": "rich copper and warm bronze tones",
+      "arctic": "icy blue and frost white tones",
+    };
+    const paletteTone = paletteTones[palette] || "warm amber and gold tones";
 
-    const isDark = ["cool-midnight", "ocean", "monochrome"].includes(palette);
+    const isDark = ["cool-midnight", "ocean", "monochrome", "lavender", "slate", "arctic"].includes(palette);
     const bgDesc = isDark ? "on a very dark, near-black background, fading into darkness" : "on a pure white background, fading into white";
     const prompt = `Single centered illustration of a "${meaning}" symbol, ${styleDesc}, watercolor wash style, faded and vintage, ${paletteTone}, ${bgDesc}, vignette, the symbol should be a single elegant motif centered in the frame, soft edges, like a vintage stamp or watermark, artistic and refined, no text, no words, no letters, no typography`;
 

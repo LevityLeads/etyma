@@ -49,7 +49,13 @@ export type ColourPalette =
   | "earth-tones"
   | "ocean"
   | "botanical"
-  | "monochrome";
+  | "monochrome"
+  | "rose"
+  | "lavender"
+  | "sunset"
+  | "slate"
+  | "copper"
+  | "arctic";
 
 export type ImageryStyle =
   | "abstract"
@@ -108,12 +114,54 @@ export const PALETTES: Record<ColourPalette, { name: string; colors: string[]; b
     text: "#F0F0F0",
     accent: "#AAAAAA",
   },
+  "rose": {
+    name: "Rose",
+    colors: ["#C46B8A", "#D4899E", "#E8B0C4", "#8E3A5C", "#FDF0F4"],
+    bg: "#1A1014",
+    text: "#FDF0F4",
+    accent: "#C46B8A",
+  },
+  "lavender": {
+    name: "Lavender",
+    colors: ["#7B68AE", "#9A8AC4", "#BEB0DA", "#5C4A8E", "#F0ECF7"],
+    bg: "#12101A",
+    text: "#F0ECF7",
+    accent: "#9A8AC4",
+  },
+  "sunset": {
+    name: "Sunset",
+    colors: ["#D4602A", "#E8844A", "#F5A870", "#8B3D14", "#FDF2EC"],
+    bg: "#1A1210",
+    text: "#FDF2EC",
+    accent: "#D4602A",
+  },
+  "slate": {
+    name: "Slate",
+    colors: ["#5A6B7A", "#7A8D9E", "#9EB0C0", "#3A4B5A", "#EDF1F4"],
+    bg: "#101418",
+    text: "#EDF1F4",
+    accent: "#7A8D9E",
+  },
+  "copper": {
+    name: "Copper",
+    colors: ["#B87333", "#CC8844", "#E0A86B", "#8A5520", "#F7EDE0"],
+    bg: "#1A1410",
+    text: "#F7EDE0",
+    accent: "#B87333",
+  },
+  "arctic": {
+    name: "Arctic",
+    colors: ["#5BB5D5", "#7CC8E4", "#A8DDF0", "#3A8DAA", "#E8F5FA"],
+    bg: "#0C1820",
+    text: "#E8F5FA",
+    accent: "#5BB5D5",
+  },
 };
 
 export const IMAGERY_STYLES: Record<ImageryStyle, { name: string; description: string }> = {
-  abstract: { name: "Abstract", description: "Flowing forms and expressive colour" },
-  botanical: { name: "Botanical", description: "Organic, nature-inspired illustrations" },
-  celestial: { name: "Celestial", description: "Stars, cosmos, and cosmic wonder" },
-  geometric: { name: "Geometric", description: "Clean lines and sacred geometry" },
-  minimalist: { name: "Minimalist", description: "Simple, refined, essential" },
+  abstract: { name: "Flowing", description: "Organic forms, expressive colour" },
+  botanical: { name: "Nature", description: "Flora, fauna, the natural world" },
+  celestial: { name: "Cosmic", description: "Stars, nebulae, the infinite" },
+  geometric: { name: "Geometry", description: "Sacred patterns, clean lines" },
+  minimalist: { name: "Minimal", description: "Simple, refined, essential" },
 };

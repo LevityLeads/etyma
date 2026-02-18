@@ -396,7 +396,7 @@ export default function CreatePage() {
           <div className="space-y-8">
             <div className="text-center space-y-3">
               <p className="text-sm font-medium tracking-[0.2em] uppercase text-[#D4930D]">Design</p>
-              <h1 className="text-4xl font-bold">Choose an imagery style</h1>
+              <h1 className="text-4xl font-bold">Choose an influence</h1>
               <p className="text-[#8A8078]">This shapes the central artwork of your print</p>
             </div>
 

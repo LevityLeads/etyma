@@ -14,6 +14,8 @@ export async function analyzeName(name: string): Promise<NameAnalysis> {
         role: "system",
         content: `You are a world-class linguist, etymologist, and phonetician. Given a name, produce a comprehensive linguistic analysis in JSON. Be accurate, scholarly, but also poetic and engaging. Never use em dashes. Use commas or full stops instead.
 
+IMPORTANT: The "meaning" field should be the most positive, aspirational interpretation of the name's etymology. Every name has beauty in its roots. Frame meanings warmly. For example, "to follow" becomes "one who walks their own path", "battle" becomes "strength and resilience". Find the gift in every name.
+
 Return this exact JSON structure:
 {
   "name": "the name as given",

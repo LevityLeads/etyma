@@ -12,7 +12,7 @@ interface EditorialPosterProps {
 
 export default function EditorialPoster({ analysis, palette, artUrl }: EditorialPosterProps) {
   const p = PALETTES[palette];
-  const isLight = palette === "warm-gold" || palette === "earth-tones" || palette === "botanical";
+  const isLight = ["warm-gold", "earth-tones", "botanical", "sunset", "copper"].includes(palette);
 
   // Adaptive colours
   const bg = isLight ? "#F5F0E8" : "#141210";
@@ -73,6 +73,20 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
           >
             {phonetics.ipa}
           </p>
+          {etymology.meaning && (
+            <p
+              className="relative"
+              style={{
+                fontSize: "clamp(10px, 1.4vw, 15px)",
+                marginTop: "clamp(4px, 0.6vw, 8px)",
+                fontStyle: "italic",
+                color: accent,
+                letterSpacing: "0.05em",
+              }}
+            >
+              &ldquo;{etymology.meaning}&rdquo;
+            </p>
+          )}
         </div>
 
         {/* Divider */}
