@@ -92,7 +92,7 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
         <div style={{ borderTop: `1px solid ${divider}`, marginBottom: "clamp(12px, 2vw, 30px)" }} />
 
         {/* ── TWO COLUMN BODY ── */}
-        <div className="grid grid-cols-2 flex-1" style={{ gap: "clamp(16px, 3vw, 40px)" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 flex-1" style={{ gap: "clamp(16px, 3vw, 40px)" }}>
           {/* LEFT COLUMN */}
           <div className="flex flex-col" style={{ gap: "clamp(12px, 2vw, 28px)" }}>
             {/* Phonetic Anatomy */}
