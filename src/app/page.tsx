@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import FannedCards from "../components/FannedCards";
+import type { FannedCardItem } from "../components/FannedCards";
 
 // Custom SVG icons instead of emojis
 const Icons = {
@@ -158,36 +160,33 @@ export default function Home() {
                 cultures, and centuries that led it to you.
               </p>
             </div>
-            <div className="space-y-8">
-              <div className="p-8 rounded-xl bg-white/5 border border-white/10">
-                <h3 className="text-xl font-semibold mb-4">Origins</h3>
-                <p className="text-[#C4BAB0] leading-relaxed">
-                  We trace your name back to its earliest known roots. &ldquo;Sunny&rdquo; descends from
-                  the Old English <span className="font-mono text-[#E8B94A]">sunne</span>, itself from
-                  Proto-Germanic <span className="font-mono text-[#E8B94A]">*sunnōn</span>, reaching
-                  all the way to Proto-Indo-European <span className="font-mono text-[#E8B94A]">*sóh₂wl̥</span>,
-                  the ancient word for the sun. A 5,000-year journey, sitting quietly in two syllables.
-                </p>
-              </div>
-              <div className="p-8 rounded-xl bg-white/5 border border-white/10">
-                <h3 className="text-xl font-semibold mb-4">Language Family Tree</h3>
-                <p className="text-[#C4BAB0] leading-relaxed">
-                  See how your name branches across language families. The same root that gave
-                  English &ldquo;sun&rdquo; gave Latin <span className="font-mono text-[#E8B94A]">sōl</span>,
-                  Greek <span className="font-mono text-[#E8B94A]">hḗlios</span>, and
-                  Sanskrit <span className="font-mono text-[#E8B94A]">sū́rya</span>.
-                  Your name connects you to all of them.
-                </p>
-              </div>
-              <div className="p-8 rounded-xl bg-white/5 border border-white/10">
-                <h3 className="text-xl font-semibold mb-4">Cultural Significance</h3>
-                <p className="text-[#C4BAB0] leading-relaxed">
-                  Names carry cultural weight. We document how your name has been used across
-                  civilizations, its symbolic meaning, and the stories it carries. Some names
-                  were once reserved for royalty. Others were prayers. Yours has a story too.
-                </p>
-              </div>
-            </div>
+            <FannedCards
+              variant="dark"
+              accentColor="#E8B94A"
+              items={[
+                {
+                  id: "origins",
+                  title: "Origins",
+                  content: (
+                    <p>We trace your name back to its earliest known roots. &ldquo;Sunny&rdquo; descends from the Old English <span className="font-mono text-[#E8B94A]">sunne</span>, itself from Proto-Germanic <span className="font-mono text-[#E8B94A]">*sunnōn</span>, reaching all the way to Proto-Indo-European <span className="font-mono text-[#E8B94A]">*sóh₂wl̥</span>, the ancient word for the sun. A 5,000-year journey, sitting quietly in two syllables.</p>
+                  ),
+                },
+                {
+                  id: "family-tree",
+                  title: "Language Family Tree",
+                  content: (
+                    <p>See how your name branches across language families. The same root that gave English &ldquo;sun&rdquo; gave Latin <span className="font-mono text-[#E8B94A]">sōl</span>, Greek <span className="font-mono text-[#E8B94A]">hḗlios</span>, and Sanskrit <span className="font-mono text-[#E8B94A]">sū́rya</span>. Your name connects you to all of them.</p>
+                  ),
+                },
+                {
+                  id: "cultural",
+                  title: "Cultural Significance",
+                  content: (
+                    <p>Names carry cultural weight. We document how your name has been used across civilizations, its symbolic meaning, and the stories it carries. Some names were once reserved for royalty. Others were prayers. Yours has a story too.</p>
+                  ),
+                },
+              ] as FannedCardItem[]}
+            />
           </div>
         </div>
       </section>
@@ -196,33 +195,34 @@ export default function Home() {
       <section id="phonetics" className="py-28 px-6 bg-[#F5EDE0]">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <div className="order-2 lg:order-1 space-y-8">
-              <div className="p-8 rounded-xl bg-white border border-[#E8B94A]/20 shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">IPA Transcription</h3>
-                <p className="text-[#8A8078] leading-relaxed">
-                  Your name rendered in the International Phonetic Alphabet, the universal
-                  system linguists use to describe exactly how sounds are made.
-                  <span className="font-mono text-[#D4930D] text-lg ml-2">/ˈsʌn.i/</span>
-                </p>
-              </div>
-              <div className="p-8 rounded-xl bg-white border border-[#E8B94A]/20 shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Sound Profile</h3>
-                <p className="text-[#8A8078] leading-relaxed">
-                  We break down each sound in your name. The <span className="font-mono text-[#D4930D]">/s/</span> is
-                  a voiceless alveolar fricative, air hissing through a narrow gap.
-                  The <span className="font-mono text-[#D4930D]">/ʌ/</span> is an open-mid back vowel,
-                  warm and centred. Together they create a sound that feels bright and optimistic.
-                  That&apos;s not coincidence. It&apos;s phonosemantics.
-                </p>
-              </div>
-              <div className="p-8 rounded-xl bg-white border border-[#E8B94A]/20 shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Stress &amp; Rhythm</h3>
-                <p className="text-[#8A8078] leading-relaxed">
-                  How your name flows when spoken. Which syllable carries the weight.
-                  Whether it falls as a trochee (DA-da) or an iamb (da-DA). The rhythm
-                  of a name shapes how it feels to say, and how it feels to be called.
-                </p>
-              </div>
+            <div className="order-2 lg:order-1">
+              <FannedCards
+                variant="light"
+                accentColor="#D4930D"
+                items={[
+                  {
+                    id: "ipa",
+                    title: "IPA Transcription",
+                    content: (
+                      <p>Your name rendered in the International Phonetic Alphabet, the universal system linguists use to describe exactly how sounds are made. <span className="font-mono text-[#D4930D] text-lg ml-1">/ˈsʌn.i/</span></p>
+                    ),
+                  },
+                  {
+                    id: "sound-profile",
+                    title: "Sound Profile",
+                    content: (
+                      <p>We break down each sound in your name. The <span className="font-mono text-[#D4930D]">/s/</span> is a voiceless alveolar fricative, air hissing through a narrow gap. The <span className="font-mono text-[#D4930D]">/ʌ/</span> is an open-mid back vowel, warm and centred. Together they create a sound that feels bright and optimistic. That&apos;s not coincidence. It&apos;s phonosemantics.</p>
+                    ),
+                  },
+                  {
+                    id: "stress",
+                    title: "Stress & Rhythm",
+                    content: (
+                      <p>How your name flows when spoken. Which syllable carries the weight. Whether it falls as a trochee (DA-da) or an iamb (da-DA). The rhythm of a name shapes how it feels to say, and how it feels to be called.</p>
+                    ),
+                  },
+                ] as FannedCardItem[]}
+              />
             </div>
             <div className="order-1 lg:order-2 space-y-8 lg:sticky lg:top-32">
               <div className="text-[#D4930D]">{Icons.sound}</div>
@@ -251,35 +251,33 @@ export default function Home() {
                 is sound, morphology is structure. The building blocks. The DNA.
               </p>
             </div>
-            <div className="space-y-8">
-              <div className="p-8 rounded-xl bg-white/5 border border-white/10">
-                <h3 className="text-xl font-semibold mb-4">Morpheme Breakdown</h3>
-                <p className="text-[#C4BAB0] leading-relaxed">
-                  Every name can be decomposed into its smallest meaningful units.
-                  <span className="font-mono text-[#E8B94A]">&ldquo;Sunny&rdquo; = sun + -y</span>.
-                  The root <span className="font-mono text-[#E8B94A]">sun</span> (the star) plus
-                  the suffix <span className="font-mono text-[#E8B94A]">-y</span> (having the quality of).
-                  Two morphemes. One meaning: radiant.
-                </p>
-              </div>
-              <div className="p-8 rounded-xl bg-white/5 border border-white/10">
-                <h3 className="text-xl font-semibold mb-4">Word Class &amp; Grammar</h3>
-                <p className="text-[#C4BAB0] leading-relaxed">
-                  Your name started as something else before it became a name. An adjective.
-                  A noun. A verb. We trace that grammatical journey: how a common word became
-                  a proper noun, became someone&apos;s identity.
-                </p>
-              </div>
-              <div className="p-8 rounded-xl bg-white/5 border border-white/10">
-                <h3 className="text-xl font-semibold mb-4">Related Forms</h3>
-                <p className="text-[#C4BAB0] leading-relaxed">
-                  Names have siblings. Variants across languages, diminutives, historical
-                  forms. &ldquo;Alexander&rdquo; connects to &ldquo;Alejandro&rdquo;,
-                  &ldquo;Alessandro&rdquo;, &ldquo;Iskander&rdquo;. Your name is part
-                  of a family.
-                </p>
-              </div>
-            </div>
+            <FannedCards
+              variant="dark"
+              accentColor="#E8B94A"
+              items={[
+                {
+                  id: "morphemes",
+                  title: "Morpheme Breakdown",
+                  content: (
+                    <p>Every name can be decomposed into its smallest meaningful units. <span className="font-mono text-[#E8B94A]">&ldquo;Sunny&rdquo; = sun + -y</span>. The root <span className="font-mono text-[#E8B94A]">sun</span> (the star) plus the suffix <span className="font-mono text-[#E8B94A]">-y</span> (having the quality of). Two morphemes. One meaning: radiant.</p>
+                  ),
+                },
+                {
+                  id: "word-class",
+                  title: "Word Class & Grammar",
+                  content: (
+                    <p>Your name started as something else before it became a name. An adjective. A noun. A verb. We trace that grammatical journey: how a common word became a proper noun, became someone&apos;s identity.</p>
+                  ),
+                },
+                {
+                  id: "related",
+                  title: "Related Forms",
+                  content: (
+                    <p>Names have siblings. Variants across languages, diminutives, historical forms. &ldquo;Alexander&rdquo; connects to &ldquo;Alejandro&rdquo;, &ldquo;Alessandro&rdquo;, &ldquo;Iskander&rdquo;. Your name is part of a family.</p>
+                  ),
+                },
+              ] as FannedCardItem[]}
+            />
           </div>
         </div>
       </section>
@@ -326,32 +324,33 @@ export default function Home() {
                 and meanings across dozens of languages and thousands of years.
               </p>
             </div>
-            <div className="space-y-8">
-              <div className="p-8 rounded-xl bg-white border border-[#E8B94A]/20 shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Cognates</h3>
-                <p className="text-[#8A8078] leading-relaxed">
-                  Words in other languages that share the same ancient root as your name.
-                  These are your name&apos;s distant cousins, proof that language is one
-                  vast, interconnected web.
-                </p>
-              </div>
-              <div className="p-8 rounded-xl bg-white border border-[#E8B94A]/20 shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Name Frequency</h3>
-                <p className="text-[#8A8078] leading-relaxed">
-                  How popular is your name, and where? We map usage data across countries
-                  and decades. Some names are universal. Others are beautifully rare.
-                  Both are interesting.
-                </p>
-              </div>
-              <div className="p-8 rounded-xl bg-white border border-[#E8B94A]/20 shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Famous Bearers</h3>
-                <p className="text-[#8A8078] leading-relaxed">
-                  The notable people who&apos;ve carried your name throughout history.
-                  Scientists, artists, leaders, characters. Every name has a lineage
-                  of remarkable people.
-                </p>
-              </div>
-            </div>
+            <FannedCards
+              variant="light"
+              accentColor="#D4930D"
+              items={[
+                {
+                  id: "cognates",
+                  title: "Cognates",
+                  content: (
+                    <p>Words in other languages that share the same ancient root as your name. These are your name&apos;s distant cousins, proof that language is one vast, interconnected web.</p>
+                  ),
+                },
+                {
+                  id: "frequency",
+                  title: "Name Frequency",
+                  content: (
+                    <p>How popular is your name, and where? We map usage data across countries and decades. Some names are universal. Others are beautifully rare. Both are interesting.</p>
+                  ),
+                },
+                {
+                  id: "famous",
+                  title: "Famous Bearers",
+                  content: (
+                    <p>The notable people who&apos;ve carried your name throughout history. Scientists, artists, leaders, characters. Every name has a lineage of remarkable people.</p>
+                  ),
+                },
+              ] as FannedCardItem[]}
+            />
           </div>
         </div>
       </section>
