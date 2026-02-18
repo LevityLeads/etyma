@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     const isDark = ["cool-midnight", "ocean", "monochrome", "lavender", "slate", "arctic"].includes(palette);
     const bgDesc = isDark ? "on a very dark, near-black background, edges fading into pure darkness" : "on a pure white background, edges fading into pure white";
-    const prompt = `A breathtaking fine art illustration that visually embodies the concept of "${meaning}". The imagery should evoke the feeling and spirit of ${meaning} through symbolic, metaphorical visual language. Style: ${styleDesc}. Colour palette: ${paletteTone}. The artwork should be centered in the frame with a single powerful focal motif, ${bgDesc}. Painterly, editorial quality, soft vignette edges, like a museum-quality print. The image should feel emotional and meaningful, not literal. Premium gallery art. Absolutely no text, no words, no letters, no numbers, no typography of any kind.`;
+    const prompt = `A breathtaking fine art background for a poster about "${meaning}". The image must work as a subtle background behind text. Key composition: a luminous focal motif in the upper third (where the title goes), transitioning to softer, more diffuse texture in the middle and lower areas (where data text will overlay). Style: ${styleDesc}. Colour palette: ${paletteTone}. The artwork should evoke the feeling and spirit of ${meaning} through symbolic, metaphorical visual language. Painterly, editorial quality, soft and dreamy, like a museum-quality fine art print. Low contrast overall so text remains readable on top. ${bgDesc}. Absolutely no text, no words, no letters, no numbers, no typography of any kind.`;
 
     const response = await fetch("https://api.kie.ai/api/v1/flux/kontext/generate", {
       method: "POST",
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         prompt,
-        aspectRatio: "3:4",
+        aspectRatio: "2:3",
         outputFormat: "png",
         model: "flux-kontext-pro",
       }),
