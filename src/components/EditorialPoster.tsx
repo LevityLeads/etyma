@@ -41,7 +41,7 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
       {artUrl && (
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={artUrl} alt="" className="w-full h-full object-cover" style={{ opacity: isLight ? 0.12 : 0.2, mixBlendMode: isLight ? "multiply" : "screen" }} />
+          <img src={artUrl} alt="" className="w-full h-full object-cover" style={{ opacity: isLight ? 0.18 : 0.25, mixBlendMode: isLight ? "multiply" : "screen" }} />
         </div>
       )}
       <div className="h-full flex flex-col relative" style={{ padding: "clamp(20px, 3.5vw, 50px)", zIndex: 1 }}>
@@ -100,8 +100,8 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
               <h3 style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(6px, 1vw, 14px)" }}>
                 Phonetic Anatomy
               </h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: "clamp(8px, 1.2vw, 18px)" }}>
-                {phonetics.sounds.map((s, i) => (
+              <div style={{ display: "flex", flexDirection: "column", gap: "clamp(6px, 0.8vw, 12px)" }}>
+                {phonetics.sounds.slice(0, 5).map((s, i) => (
                   <div key={i} className="flex items-start" style={{ gap: "clamp(6px, 1vw, 12px)" }}>
                     <span style={{ fontFamily: "serif", fontSize: "clamp(16px, 2.2vw, 28px)", lineHeight: 1, flexShrink: 0, minWidth: "2em" }}>
                       {s.symbol}
@@ -296,7 +296,7 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
               Sound Symbolism &middot; Phonaesthesia
             </h3>
             <div className="flex items-center justify-center" style={{ gap: "clamp(4px, 1vw, 16px)" }}>
-              {phonaesthesia.map((ph, i) => (
+              {phonaesthesia.slice(0, 5).map((ph, i) => (
                 <div key={i} className="flex items-center" style={{ gap: "clamp(4px, 1vw, 16px)" }}>
                   <div className="text-center">
                     <span style={{ fontFamily: "serif", fontSize: "clamp(16px, 2.5vw, 32px)", display: "block" }}>{ph.symbol}</span>
