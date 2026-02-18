@@ -37,11 +37,20 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
         position: "relative" as const,
       }}
     >
-      {/* Full-bleed background art */}
+      {/* Background art with gradient fade */}
       {artUrl && (
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={artUrl} alt="" className="w-full h-full object-cover" style={{ opacity: isLight ? 0.18 : 0.25, mixBlendMode: isLight ? "multiply" : "screen" }} />
+          <img src={artUrl} alt="" className="w-full h-full object-cover" style={{ mixBlendMode: isLight ? "multiply" : "screen" }} />
+          {/* Gradient mask: art visible at top, fades through middle, very subtle at bottom */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: isLight
+                ? `linear-gradient(to bottom, ${bg}00 0%, ${bg}40 25%, ${bg}B0 45%, ${bg}E8 60%, ${bg}F5 100%)`
+                : `linear-gradient(to bottom, ${bg}00 0%, ${bg}50 25%, ${bg}B8 45%, ${bg}E0 60%, ${bg}F0 100%)`,
+            }}
+          />
         </div>
       )}
       <div className="h-full flex flex-col relative" style={{ padding: "clamp(20px, 3.5vw, 50px)", zIndex: 1 }}>
