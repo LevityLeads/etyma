@@ -84,12 +84,13 @@ export default function CreatePage() {
           palette,
           imagery,
           etymology: {
-            origin: analysis.etymology.origin,
+            origin: analysis.etymology.originLanguage,
+            rootWord: analysis.etymology.rootWord,
             rootMeaning: analysis.etymology.rootMeaning,
           },
           morphology: {
-            root: analysis.morphology?.root,
-            rootMeaning: analysis.morphology?.rootMeaning,
+            root: analysis.morphology?.morphemes?.[0]?.part,
+            rootMeaning: analysis.morphology?.morphemes?.[0]?.meaning,
           },
           emotionalRegister: analysis.emotionalRegister,
         }),
