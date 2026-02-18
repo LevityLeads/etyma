@@ -22,7 +22,7 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
   const textFaint = isLight ? "#908880" : `${p.text}66`;
   const divider = isLight ? "#D5CFC5" : `${p.text}22`;
 
-  const { etymology, phonetics, morphology, phonaesthesia, semanticWeb, emotionalRegister, summaryQuote } = analysis;
+  const { etymology, phonetics, morphology, emotionalRegister, summaryQuote } = analysis;
 
   return (
     <div
@@ -87,8 +87,8 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
             <p
               className="relative"
               style={{
-                fontSize: "clamp(10px, 1.4vw, 15px)",
-                marginTop: "clamp(4px, 0.6vw, 8px)",
+                fontSize: "clamp(12px, 1.8vw, 20px)",
+                marginTop: "clamp(6px, 1vw, 14px)",
                 fontStyle: "italic",
                 color: accent,
                 letterSpacing: "0.05em",
@@ -219,89 +219,11 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
               </p>
             </div>
 
-            {/* Semantic Web - moved to full-width section below */}
           </div>
         </div>
 
         {/* Divider */}
         <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(8px, 1.2vw, 16px) 0" }} />
-
-        {/* ── SEMANTIC WEB (full width) ── */}
-        {semanticWeb && (semanticWeb.associations || []).length > 0 && (
-          <div>
-            <h3 className="text-center" style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(8px, 1.4vw, 18px)" }}>
-              Semantic Web
-            </h3>
-            <svg viewBox="0 0 400 120" className="w-full" style={{ maxHeight: "clamp(60px, 10vw, 120px)" }}>
-              {/* Connecting lines from centre to each node */}
-              {(semanticWeb.associations || []).slice(0, 6).map((_, i) => {
-                const cx = 200, cy = 55;
-                const nodePositions = [
-                  { x: 80, y: 20 },
-                  { x: 320, y: 20 },
-                  { x: 30, y: 65 },
-                  { x: 370, y: 65 },
-                  { x: 110, y: 105 },
-                  { x: 290, y: 105 },
-                ];
-                const pos = nodePositions[i];
-                if (!pos) return null;
-                return (
-                  <line key={`line-${i}`} x1={cx} y1={cy} x2={pos.x} y2={pos.y} stroke={accent} strokeOpacity={0.2} strokeWidth={0.8} />
-                );
-              })}
-              {/* Secondary lines between adjacent nodes */}
-              {[
-                [0, 2], [1, 3], [2, 4], [3, 5], [4, 5], [0, 1],
-              ].map(([a, b], i) => {
-                const nodePositions = [
-                  { x: 80, y: 20 }, { x: 320, y: 20 },
-                  { x: 30, y: 65 }, { x: 370, y: 65 },
-                  { x: 110, y: 105 }, { x: 290, y: 105 },
-                ];
-                const pa = nodePositions[a];
-                const pb = nodePositions[b];
-                if (!pa || !pb || a >= (semanticWeb.associations || []).length || b >= (semanticWeb.associations || []).length) return null;
-                return (
-                  <line key={`sub-${i}`} x1={pa.x} y1={pa.y} x2={pb.x} y2={pb.y} stroke={accent} strokeOpacity={0.08} strokeWidth={0.5} strokeDasharray="3,3" />
-                );
-              })}
-              {/* Centre node */}
-              <circle cx={200} cy={55} r={22} fill={accent} fillOpacity={0.1} stroke={accent} strokeOpacity={0.3} strokeWidth={0.8} />
-              <text x={200} y={59} textAnchor="middle" fill={text} fontSize={8} fontWeight={700} fontFamily="'Playfair Display', serif" letterSpacing="0.1em">
-                {analysis.name.toUpperCase()}
-              </text>
-              {/* Association nodes */}
-              {(semanticWeb.associations || []).slice(0, 6).map((word, i) => {
-                const nodePositions = [
-                  { x: 80, y: 20 }, { x: 320, y: 20 },
-                  { x: 30, y: 65 }, { x: 370, y: 65 },
-                  { x: 110, y: 105 }, { x: 290, y: 105 },
-                ];
-                const pos = nodePositions[i];
-                if (!pos) return null;
-                return (
-                  <g key={`node-${i}`}>
-                    <circle cx={pos.x} cy={pos.y} r={3} fill={accent} fillOpacity={0.3} />
-                    <text x={pos.x} y={pos.y - 8} textAnchor="middle" fill={textMuted} fontSize={8} fontFamily="sans-serif">
-                      {word}
-                    </text>
-                  </g>
-                );
-              })}
-            </svg>
-            {semanticWeb.coreValues && (
-              <p className="text-center" style={{ fontSize: "clamp(7px, 0.8vw, 10px)", color: textFaint, marginTop: "clamp(4px, 0.6vw, 8px)" }}>
-                {semanticWeb.coreValues}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* Divider */}
-        <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(8px, 1.2vw, 16px) 0" }} />
-
-        {/* ── SOUND SYMBOLISM ── */}
         {/* ── EMOTIONAL REGISTER ── */}
         {emotionalRegister && (
           <div>
