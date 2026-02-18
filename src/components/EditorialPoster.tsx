@@ -208,49 +208,84 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
               </p>
             </div>
 
-            {/* Semantic Web */}
-            {semanticWeb && (
-              <div>
-                <h3 style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(6px, 1vw, 14px)" }}>
-                  Semantic Web
-                </h3>
-                <div className="relative flex items-center justify-center" style={{ height: "clamp(80px, 12vw, 160px)" }}>
-                  {/* Center node */}
-                  <div
-                    className="absolute z-10 px-3 py-1.5"
-                    style={{ fontSize: "clamp(8px, 1vw, 11px)", fontWeight: 700 }}
-                  >
-                    {analysis.name.toUpperCase()}
-                  </div>
-                  {/* Surrounding words */}
-                  {(semanticWeb.associations || []).slice(0, 5).map((word, i) => {
-                    const positions = [
-                      { top: "5%", left: "10%" },
-                      { top: "5%", right: "10%" },
-                      { top: "45%", left: "0%" },
-                      { top: "45%", right: "0%" },
-                      { bottom: "5%", left: "25%", right: "25%", textAlign: "center" as const },
-                    ];
-                    return (
-                      <span
-                        key={i}
-                        className="absolute"
-                        style={{ ...positions[i], fontSize: "clamp(7px, 0.9vw, 11px)", color: textMuted }}
-                      >
-                        {word}
-                      </span>
-                    );
-                  })}
-                </div>
-                {semanticWeb.coreValues && (
-                  <p className="text-center" style={{ fontSize: "clamp(7px, 0.8vw, 10px)", color: textFaint }}>
-                    {semanticWeb.coreValues}
-                  </p>
-                )}
-              </div>
-            )}
+            {/* Semantic Web - moved to full-width section below */}
           </div>
         </div>
+
+        {/* Divider */}
+        <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(12px, 2vw, 30px) 0" }} />
+
+        {/* ── SEMANTIC WEB (full width) ── */}
+        {semanticWeb && (semanticWeb.associations || []).length > 0 && (
+          <div>
+            <h3 className="text-center" style={{ color: accent, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(9px, 1.2vw, 13px)", letterSpacing: "0.08em", marginBottom: "clamp(8px, 1.4vw, 18px)" }}>
+              Semantic Web
+            </h3>
+            <svg viewBox="0 0 400 200" className="w-full" style={{ maxHeight: "clamp(100px, 18vw, 200px)" }}>
+              {/* Connecting lines from centre to each node */}
+              {(semanticWeb.associations || []).slice(0, 6).map((_, i) => {
+                const cx = 200, cy = 100;
+                const nodePositions = [
+                  { x: 70, y: 40 },
+                  { x: 330, y: 40 },
+                  { x: 40, y: 110 },
+                  { x: 360, y: 110 },
+                  { x: 120, y: 175 },
+                  { x: 280, y: 175 },
+                ];
+                const pos = nodePositions[i];
+                if (!pos) return null;
+                return (
+                  <line key={`line-${i}`} x1={cx} y1={cy} x2={pos.x} y2={pos.y} stroke={accent} strokeOpacity={0.2} strokeWidth={0.8} />
+                );
+              })}
+              {/* Secondary lines between adjacent nodes */}
+              {[
+                [0, 2], [1, 3], [2, 4], [3, 5], [4, 5], [0, 1],
+              ].map(([a, b], i) => {
+                const nodePositions = [
+                  { x: 70, y: 40 }, { x: 330, y: 40 },
+                  { x: 40, y: 110 }, { x: 360, y: 110 },
+                  { x: 120, y: 175 }, { x: 280, y: 175 },
+                ];
+                const pa = nodePositions[a];
+                const pb = nodePositions[b];
+                if (!pa || !pb || a >= (semanticWeb.associations || []).length || b >= (semanticWeb.associations || []).length) return null;
+                return (
+                  <line key={`sub-${i}`} x1={pa.x} y1={pa.y} x2={pb.x} y2={pb.y} stroke={accent} strokeOpacity={0.08} strokeWidth={0.5} strokeDasharray="3,3" />
+                );
+              })}
+              {/* Centre node */}
+              <circle cx={200} cy={100} r={28} fill={accent} fillOpacity={0.1} stroke={accent} strokeOpacity={0.3} strokeWidth={0.8} />
+              <text x={200} y={104} textAnchor="middle" fill={text} fontSize={10} fontWeight={700} fontFamily="'Playfair Display', serif" letterSpacing="0.1em">
+                {analysis.name.toUpperCase()}
+              </text>
+              {/* Association nodes */}
+              {(semanticWeb.associations || []).slice(0, 6).map((word, i) => {
+                const nodePositions = [
+                  { x: 70, y: 40 }, { x: 330, y: 40 },
+                  { x: 40, y: 110 }, { x: 360, y: 110 },
+                  { x: 120, y: 175 }, { x: 280, y: 175 },
+                ];
+                const pos = nodePositions[i];
+                if (!pos) return null;
+                return (
+                  <g key={`node-${i}`}>
+                    <circle cx={pos.x} cy={pos.y} r={4} fill={accent} fillOpacity={0.3} />
+                    <text x={pos.x} y={pos.y + 16} textAnchor="middle" fill={textMuted} fontSize={9} fontFamily="sans-serif">
+                      {word}
+                    </text>
+                  </g>
+                );
+              })}
+            </svg>
+            {semanticWeb.coreValues && (
+              <p className="text-center" style={{ fontSize: "clamp(7px, 0.8vw, 10px)", color: textFaint, marginTop: "clamp(4px, 0.6vw, 8px)" }}>
+                {semanticWeb.coreValues}
+              </p>
+            )}
+          </div>
+        )}
 
         {/* Divider */}
         <div style={{ borderTop: `1px solid ${divider}`, margin: "clamp(12px, 2vw, 30px) 0" }} />

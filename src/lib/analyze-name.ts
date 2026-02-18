@@ -51,7 +51,7 @@ Return this exact JSON structure:
     {"symbol": "/phoneme/", "line1": "2-3 word concept", "line2": "2-3 word poetic expansion"}
   ],
   "semanticWeb": {
-    "associations": ["word1", "word2", "word3", "word4", "word5"],
+    "associations": ["word1", "word2", "word3", "word4", "word5", "word6"],
     "coreValues": "3-5 words separated by middots (e.g. life · growth · hope)"
   },
   "emotionalRegister": {
