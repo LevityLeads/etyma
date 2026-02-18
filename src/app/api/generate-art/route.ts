@@ -2,13 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 
 const KIE_KEY = process.env.KIE_API_KEY || "";
 
-// Style influences HOW the image is rendered
+// Visual Direction: HOW the image is rendered (not what it depicts)
 const STYLE_RENDERS: Record<string, string> = {
-  abstract: "rendered as abstract fine art with flowing forms, expressive brushstrokes, and fluid organic shapes",
-  botanical: "rendered as a rich botanical illustration with organic natural elements, leaves, flora, and living forms",
-  celestial: "rendered with cosmic grandeur, starfields, nebulae, celestial light, and deep space wonder",
-  geometric: "rendered with sacred geometry, clean precise lines, mathematical harmony, and golden ratio composition",
-  minimalist: "rendered in ultra-minimalist style with a single powerful focal element, vast negative space, and refined simplicity",
+  watercolour: "rendered as a delicate watercolour painting with soft washes of colour, bleeding edges, translucent layers, and the organic imperfection of pigment on wet paper",
+  "oil-painting": "rendered as a rich oil painting with visible textured brushstrokes, deep colour saturation, classical fine art technique, and the luminous depth of layered oils",
+  "line-art": "rendered as detailed fine line art illustration, precise pen-and-ink linework, crosshatching, reminiscent of vintage engraving or etching prints",
+  geometric: "rendered with sacred geometry, tessellated patterns, mathematical precision, clean lines, golden ratio composition, and crystalline structure",
+  minimal: "rendered in ultra-minimalist style with a single powerful focal element, vast negative space, refined simplicity, and restrained elegance",
+  botanical: "rendered as a detailed botanical illustration in the tradition of scientific art, with precise organic forms, leaves, petals, and living natural elements",
+  impressionist: "rendered in impressionist style with soft dappled light, loose visible brushwork, atmospheric colour, and the dreamy quality of a Monet or Renoir painting",
+  "art-nouveau": "rendered in Art Nouveau style with flowing organic curves, ornamental decorative elements, sinuous lines, and the elegant beauty of Alphonse Mucha",
+  "ink-wash": "rendered as an ink wash painting in the tradition of East Asian brush art (sumi-e), with bold expressive brushstrokes, gradients of black ink, and meditative negative space",
+  "stained-glass": "rendered in the style of stained glass art with bold dark outlines, jewel-toned colour segments, luminous translucent light, and cathedral window grandeur",
 };
 
 // Palette influences the colour world

@@ -58,11 +58,16 @@ export type ColourPalette =
   | "arctic";
 
 export type ImageryStyle =
-  | "abstract"
-  | "botanical"
-  | "celestial"
+  | "watercolour"
+  | "oil-painting"
+  | "line-art"
   | "geometric"
-  | "minimalist";
+  | "minimal"
+  | "botanical"
+  | "impressionist"
+  | "art-nouveau"
+  | "ink-wash"
+  | "stained-glass";
 
 export interface PosterConfig {
   name: string;
@@ -159,9 +164,14 @@ export const PALETTES: Record<ColourPalette, { name: string; colors: string[]; b
 };
 
 export const IMAGERY_STYLES: Record<ImageryStyle, { name: string; description: string }> = {
-  abstract: { name: "Flowing", description: "Organic forms, expressive colour" },
-  botanical: { name: "Nature", description: "Flora, fauna, the natural world" },
-  celestial: { name: "Cosmic", description: "Stars, nebulae, the infinite" },
-  geometric: { name: "Geometry", description: "Sacred patterns, clean lines" },
-  minimalist: { name: "Minimal", description: "Simple, refined, essential" },
+  watercolour: { name: "Watercolour", description: "Soft washes, delicate and organic" },
+  "oil-painting": { name: "Oil Painting", description: "Rich brushstrokes, classical depth" },
+  "line-art": { name: "Line Art", description: "Fine linework, etching, illustration" },
+  geometric: { name: "Geometric", description: "Sacred geometry, mathematical" },
+  minimal: { name: "Minimal", description: "Single element, negative space" },
+  botanical: { name: "Botanical", description: "Scientific art, living forms" },
+  impressionist: { name: "Impressionist", description: "Dappled light, soft brushwork" },
+  "art-nouveau": { name: "Art Nouveau", description: "Ornamental curves, Mucha-style" },
+  "ink-wash": { name: "Ink Wash", description: "East Asian brush painting" },
+  "stained-glass": { name: "Stained Glass", description: "Bold outlines, jewel tones" },
 };
