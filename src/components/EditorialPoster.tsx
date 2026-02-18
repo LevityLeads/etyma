@@ -31,7 +31,6 @@ export default function EditorialPoster({ analysis, palette, artUrl }: Editorial
         backgroundColor: bg,
         color: text,
         maxWidth: 900,
-        aspectRatio: "2/3",
         fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
       }}
     >
