@@ -2,42 +2,71 @@ import { NextRequest, NextResponse } from "next/server";
 
 const KIE_KEY = process.env.KIE_API_KEY || "";
 
-const STYLE_PROMPTS: Record<string, string> = {
-  abstract: "abstract flowing forms, expressive brushstrokes, fluid organic shapes",
-  botanical: "botanical illustration, detailed leaves and flowers, organic nature art",
-  celestial: "cosmic stars and nebulae, celestial bodies, deep space wonder",
-  geometric: "sacred geometry, clean precise lines, mathematical patterns, golden ratio",
-  minimalist: "ultra minimalist, single focal element, negative space, refined simplicity",
+// Style influences HOW the image is rendered
+const STYLE_RENDERS: Record<string, string> = {
+  abstract: "rendered as abstract fine art with flowing forms, expressive brushstrokes, and fluid organic shapes",
+  botanical: "rendered as a rich botanical illustration with organic natural elements, leaves, flora, and living forms",
+  celestial: "rendered with cosmic grandeur, starfields, nebulae, celestial light, and deep space wonder",
+  geometric: "rendered with sacred geometry, clean precise lines, mathematical harmony, and golden ratio composition",
+  minimalist: "rendered in ultra-minimalist style with a single powerful focal element, vast negative space, and refined simplicity",
+};
+
+// Palette influences the colour world
+const PALETTE_WORLDS: Record<string, string> = {
+  "warm-gold": "in a warm world of amber, gold, and honeyed light",
+  "cool-midnight": "in a cool nocturnal world of deep blues, silvers, and moonlight",
+  "earth-tones": "in rich earthy tones of umber, sienna, warm browns, and aged parchment",
+  "ocean": "in deep oceanic teals, turquoise, and the shimmer of water",
+  "botanical": "in lush greens, sage, moss, and forest tones",
+  "monochrome": "in dramatic black, white, and silver with no colour",
+  "rose": "in soft pinks, dusty rose, blush, and gentle warmth",
+  "lavender": "in dreamy purples, soft violet, and twilight hues",
+  "sunset": "in warm sunset oranges, burnt sienna, and the glow of golden hour",
+  "slate": "in cool greys, steel blue, and the quiet tone of stone",
+  "copper": "in rich copper, warm bronze, and burnished metallic warmth",
+  "arctic": "in icy blues, frost white, and the crystalline cold of winter",
 };
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, meaning, palette, imagery } = await req.json();
+    const { name, meaning, palette, imagery, etymology, morphology, emotionalRegister } = await req.json();
 
     if (!name || !meaning || !imagery) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    const styleDesc = STYLE_PROMPTS[imagery] || STYLE_PROMPTS.abstract;
-    const paletteTones: Record<string, string> = {
-      "warm-gold": "warm amber and gold tones",
-      "cool-midnight": "cool blue and silver tones",
-      "earth-tones": "warm earthy brown and amber tones",
-      "ocean": "deep teal and turquoise tones",
-      "botanical": "rich green and sage tones",
-      "monochrome": "black white and silver monochrome",
-      "rose": "soft pink and dusty rose tones",
-      "lavender": "gentle purple and violet tones",
-      "sunset": "warm orange and burnt sienna tones",
-      "slate": "cool grey and steel blue tones",
-      "copper": "rich copper and warm bronze tones",
-      "arctic": "icy blue and frost white tones",
-    };
-    const paletteTone = paletteTones[palette] || "warm amber and gold tones";
+    const styleRender = STYLE_RENDERS[imagery] || STYLE_RENDERS.abstract;
+    const paletteWorld = PALETTE_WORLDS[palette] || PALETTE_WORLDS["warm-gold"];
 
     const isDark = ["cool-midnight", "ocean", "monochrome", "lavender", "slate", "arctic"].includes(palette);
-    const bgDesc = isDark ? "on a very dark, near-black background, edges fading into pure darkness" : "on a pure white background, edges fading into pure white";
-    const prompt = `Create a stunning piece of art that symbolises "${meaning}". The artwork should be a single powerful central motif that represents the essence and spirit of ${meaning}. Style: ${styleDesc}. Colour palette: ${paletteTone}. The composition should have the main subject prominent in the centre to upper area, with details naturally dissolving and fading toward the edges. Think vintage book illustration, editorial art, or museum-quality fine art print. Rich, evocative, emotional imagery. ${bgDesc}. The edges should fade completely into the background colour. Absolutely no text, no words, no letters, no numbers, no typography of any kind.`;
+    const bgInstruction = isDark
+      ? "The background must be very dark, near-black. All elements fade into darkness at the edges."
+      : "The background must be pure white or very light cream. All elements fade into white at the edges.";
+
+    // Build a contextual prompt from the full analysis
+    const etymologyContext = etymology?.origin
+      ? `The name comes from ${etymology.origin} meaning "${etymology.rootMeaning || meaning}".`
+      : "";
+    const morphologyContext = morphology?.root
+      ? `Its root "${morphology.root}" carries the essence of ${morphology.rootMeaning || meaning}.`
+      : "";
+    const emotionalContext = emotionalRegister?.weather
+      ? `It evokes the feeling of ${emotionalRegister.weather.toLowerCase()}.`
+      : "";
+
+    const prompt = `Create a breathtaking piece of art for the name "${name}".
+
+This name means "${meaning}". ${etymologyContext} ${morphologyContext} ${emotionalContext}
+
+The artwork must visually represent what "${name}" means and feels like. Not the letters of the name, but its soul and essence. What would "${meaning}" look like if you could paint it?
+
+${styleRender}, ${paletteWorld}.
+
+Composition: A single powerful central motif in the upper-centre of the frame. The imagery naturally dissolves and fades toward the edges, especially the bottom half. Museum-quality fine art print. Emotional, evocative, deeply meaningful.
+
+${bgInstruction}
+
+CRITICAL: Absolutely NO text, NO words, NO letters, NO numbers, NO typography of any kind anywhere in the image.`;
 
     // Use FLUX Kontext Pro (fast, reliable)
     const response = await fetch("https://api.kie.ai/api/v1/flux/kontext/generate", {
@@ -55,7 +84,7 @@ export async function POST(req: NextRequest) {
     });
 
     const data = await response.json();
-    console.log("KIE FLUX response:", JSON.stringify(data));
+    console.log("KIE FLUX response code:", data?.code, "taskId:", data?.data?.taskId);
     const taskId = data?.data?.taskId;
 
     if (!taskId) {

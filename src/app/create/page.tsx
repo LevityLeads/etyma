@@ -83,6 +83,15 @@ export default function CreatePage() {
           meaning: analysis.etymology.meaning,
           palette,
           imagery,
+          etymology: {
+            origin: analysis.etymology.origin,
+            rootMeaning: analysis.etymology.rootMeaning,
+          },
+          morphology: {
+            root: analysis.morphology?.root,
+            rootMeaning: analysis.morphology?.rootMeaning,
+          },
+          emotionalRegister: analysis.emotionalRegister,
         }),
       });
       const data = await res.json();
