@@ -36,8 +36,8 @@ export async function POST(req: NextRequest) {
     const paletteTone = paletteTones[palette] || "warm amber and gold tones";
 
     const isDark = ["cool-midnight", "ocean", "monochrome", "lavender", "slate", "arctic"].includes(palette);
-    const bgDesc = isDark ? "on a very dark, near-black background, fading into darkness" : "on a pure white background, fading into white";
-    const prompt = `Single centered illustration of a "${meaning}" symbol, ${styleDesc}, watercolor wash style, faded and vintage, ${paletteTone}, ${bgDesc}, vignette, the symbol should be a single elegant motif centered in the frame, soft edges, like a vintage stamp or watermark, artistic and refined, no text, no words, no letters, no typography`;
+    const bgDesc = isDark ? "on a very dark, near-black background, edges fading into pure darkness" : "on a pure white background, edges fading into pure white";
+    const prompt = `A breathtaking fine art illustration that visually embodies the concept of "${meaning}". The imagery should evoke the feeling and spirit of ${meaning} through symbolic, metaphorical visual language. Style: ${styleDesc}. Colour palette: ${paletteTone}. The artwork should be centered in the frame with a single powerful focal motif, ${bgDesc}. Painterly, editorial quality, soft vignette edges, like a museum-quality print. The image should feel emotional and meaningful, not literal. Premium gallery art. Absolutely no text, no words, no letters, no numbers, no typography of any kind.`;
 
     const response = await fetch("https://api.kie.ai/api/v1/flux/kontext/generate", {
       method: "POST",
