@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         prompt,
-        aspectRatio: "2:3",
+        aspectRatio: "3:4",
         outputFormat: "png",
         model: "flux-kontext-pro",
       }),
