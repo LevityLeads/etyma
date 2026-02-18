@@ -39,25 +39,31 @@ export async function POST(req: NextRequest) {
     const bgDesc = isDark ? "on a very dark, near-black background, edges fading into pure darkness" : "on a pure white background, edges fading into pure white";
     const prompt = `A breathtaking fine art background for a poster about "${meaning}". The image must work as a subtle background behind text. Key composition: a luminous focal motif in the upper third (where the title goes), transitioning to softer, more diffuse texture in the middle and lower areas (where data text will overlay). Style: ${styleDesc}. Colour palette: ${paletteTone}. The artwork should evoke the feeling and spirit of ${meaning} through symbolic, metaphorical visual language. Painterly, editorial quality, soft and dreamy, like a museum-quality fine art print. Low contrast overall so text remains readable on top. ${bgDesc}. Absolutely no text, no words, no letters, no numbers, no typography of any kind.`;
 
-    const response = await fetch("https://api.kie.ai/api/v1/flux/kontext/generate", {
+    // Use Nano Banana Pro (Gemini 3.0 Pro) via KIE jobs API
+    const response = await fetch("https://api.kie.ai/api/v1/jobs/createTask", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${KIE_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt,
-        aspectRatio: "3:4",
-        outputFormat: "png",
-        model: "flux-kontext-pro",
+        model: "nano-banana-pro",
+        input: {
+          prompt,
+          aspect_ratio: "2:3",
+          resolution: "1K",
+          output_format: "png",
+        },
       }),
     });
 
     const data = await response.json();
+    console.log("KIE create task response:", JSON.stringify(data));
     const taskId = data?.data?.taskId;
 
     if (!taskId) {
-      return NextResponse.json({ error: "Generation failed" }, { status: 500 });
+      console.error("No taskId in response:", data);
+      return NextResponse.json({ error: "Generation failed", detail: data?.msg }, { status: 500 });
     }
 
     return NextResponse.json({ taskId });
