@@ -65,8 +65,37 @@ export default function CreatePage() {
   const [artUrl, setArtUrl] = useState<string | null>(null);
   const [posterLayout, setPosterLayout] = useState<PosterLayout>("detailed");
   const [artGenerating, setArtGenerating] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   const stepIndex = STEP_ORDER.indexOf(step);
+
+  const handleCheckout = async () => {
+    if (!analysis) return;
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: analysis.name,
+          analysis: {
+            meaning: analysis.etymology.meaning,
+            origin: analysis.etymology.originLanguage,
+            rootWord: analysis.etymology.rootWord,
+            ipa: analysis.phonetics.ipa,
+          },
+        }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setCheckoutLoading(false);
+      }
+    } catch {
+      setCheckoutLoading(false);
+    }
+  };
 
   // Start art generation when entering preview step
   const generateArt = useCallback(async () => {
@@ -495,8 +524,12 @@ export default function CreatePage() {
                   )}
 
                   <div className="flex gap-4">
-                    <button className="btn-primary flex-1">
-                      Buy Digital Print — £25
+                    <button
+                      onClick={handleCheckout}
+                      disabled={checkoutLoading}
+                      className="btn-primary flex-1 disabled:opacity-60"
+                    >
+                      {checkoutLoading ? "Redirecting to checkout..." : "Buy Digital Print — £25"}
                     </button>
                   </div>
                   <button className="btn-secondary w-full">
