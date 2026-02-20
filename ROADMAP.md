@@ -9,13 +9,13 @@
 - £25 digital PDF (A1 print-ready, 300dpi)
 - £45 framed print (future, needs fulfilment partner)
 
-## Phase 1: Payment + Delivery ← CURRENT
-- [ ] Stripe account (use Atlas Monzo card)
-- [ ] Stripe checkout integration
-- [ ] Order queue (Google Sheet or simple DB)
-- [ ] High-res PDF generator (SVG text layers + upscaled KIE art)
-- [ ] Email delivery with secure download link
-- [ ] Order confirmation page
+## Phase 1: Payment + Delivery ✅ DONE
+- [x] Stripe checkout integration
+- [x] Order store (in-memory, bridges checkout → webhook)
+- [x] High-res PDF generator (react-pdf, A2 300dpi)
+- [x] Stripe webhook (checkout.session.completed → PDF gen → email)
+- [x] Email delivery with PDF attachment (via Google API proxy, atlas@levityleads.com)
+- [x] Order confirmation page (shows delivery email, print tips)
 
 ## Phase 2: Polish
 - [ ] "Regenerate artwork" button in wizard (unlimited, free)
