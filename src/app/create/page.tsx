@@ -73,17 +73,31 @@ export default function CreatePage() {
     if (!analysis) return;
     setCheckoutLoading(true);
     try {
+      // Store full order data server-side first
+      const orderRes = await fetch("/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: analysis.name,
+          analysis,
+          palette,
+          artUrl: artUrl || undefined,
+          imageryStyle: imagery,
+        }),
+      });
+      const orderData = await orderRes.json();
+      if (!orderData.orderId) {
+        setCheckoutLoading(false);
+        return;
+      }
+
+      // Create Stripe checkout with orderId reference
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: analysis.name,
-          analysis: {
-            meaning: analysis.etymology.meaning,
-            origin: analysis.etymology.originLanguage,
-            rootWord: analysis.etymology.rootWord,
-            ipa: analysis.phonetics.ipa,
-          },
+          orderId: orderData.orderId,
         }),
       });
       const data = await res.json();

@@ -9,7 +9,11 @@ function getStripe() {
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, analysis } = await req.json();
+    const { name, orderId } = await req.json();
+
+    if (!name || !orderId) {
+      return NextResponse.json({ error: "Missing name or orderId" }, { status: 400 });
+    }
 
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
@@ -28,8 +32,8 @@ export async function POST(req: NextRequest) {
         },
       ],
       metadata: {
+        orderId,
         customerName: name,
-        analysis: JSON.stringify(analysis).slice(0, 500), // Stripe metadata max 500 chars per value
       },
       success_url: `${req.nextUrl.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.nextUrl.origin}/create`,
